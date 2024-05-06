@@ -1,0 +1,178 @@
+.inner {
+    /* background-color: aquamarine; */
+    gap: 20px;
+}
+
+.emp {
+    background-color: #57C5CA;
+    width: 15px;
+    height: 90%;
+    border-radius: 0px 10px 10px 0px;
+}
+
+.each {
+    display: flex;
+    /* background-color: bisque; */
+    justify-content: space-around;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.all {
+    display: flex;
+    background-color: #373C3E;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 15px;
+    width: 90%;
+}
+
+
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay-content {
+    background-color: #57C5CA;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.overlay button {
+    margin: 0 10px;
+}
+.success-message {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #57C5CA;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 9999; /* Ensure it's on top of other content */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
