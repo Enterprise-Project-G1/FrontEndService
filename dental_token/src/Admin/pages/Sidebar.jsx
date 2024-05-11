@@ -5,7 +5,7 @@ import img from '../img/image.png';
 
 const Side = () => {
     return (
-        <div>
+        <div style={{backgroundColor:"blue"}}>
             <div className="con">
                 <img src={img} alt="image"></img>
                 <p>Receptionist</p>

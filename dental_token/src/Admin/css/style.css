@@ -15,6 +15,9 @@
     height: 37px;
     width: 37px;
 }
+/* .pp{
+    background-color: pink;
+} */
 .doctors{
     background-color: #FFFFFF;
     /* height: 206px; */
@@ -31,7 +34,7 @@
     row-gap: 10px;
     column-gap: 10px;
 }
-.outer{
+.outer2{
     display: flex;
     flex-direction: row;
 }

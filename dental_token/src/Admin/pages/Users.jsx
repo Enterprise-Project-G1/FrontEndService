@@ -62,9 +62,9 @@ const Users = () => {
         setShowOverlay(false);
     };
     return (
-        <div style={{ background: "#373C3E" }}>
+        <div className="pp" style={{ background: "#373C3E" }}>
             <Nav />
-            <div className="outer">
+            <div className="outer2">
 
                 <div style={{ paddingLeft: "60px", paddingTop: "20px" }}>
                     <div className="con">

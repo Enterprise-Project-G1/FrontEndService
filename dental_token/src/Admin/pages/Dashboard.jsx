@@ -98,7 +98,7 @@ const Dashboard = () => {
     return (
         <div style={{ background: "#373C3E" }}>
             <Nav />
-            <div className="outer">
+            <div className="outer2">
 
                 <div style={{ paddingLeft: "60px", paddingTop: "20px" }}>
                     <div className="con">

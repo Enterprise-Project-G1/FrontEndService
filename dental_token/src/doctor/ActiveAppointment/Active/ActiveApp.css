@@ -1,10 +1,10 @@
-*{
+/* *{
     margin: 0;
     box-sizing: border-box;
     overflow-x: hidden;
-}
+} */
 
-.Active{
+.Active1{
     display: flex;
     position: relative;
     padding-top: 2rem;
@@ -15,13 +15,13 @@
     flex-direction: column;
 }
 
-.logo{
+.logo1{
     height: 120px;
     width: 120px;
     display: flex;
 }
 
-.line{
+.line1{
     margin-top: 40px;
     width: 90%;
     height: 1px;
@@ -29,34 +29,32 @@
 
 }
 
-.menu{
+.menu1{
     margin-top:  4rem;
     display: flex;
     flex-direction: column;
     row-gap: 1rem;
-    /* border: 1px solid red; */
 
 }
 
-.menu .menuItem{
+.menu1 .menuItem1{
     display: flex;
     align-items: center;
     column-gap: 1rem;
 }
 
-.line2{
+.line21{
     margin-top: 100px; 
     height: 2px;
 
 }
-.menu .menuItem{
+.menu1 .menuItem1{
     display: flex;
     align-items: center;
     column-gap: 1rem;
 }
 
-.doctorInfo{
-    /* border: 1px solid red; */
+.doctorInfo1{
     margin-top: 50px;
     display: flex;
     height: auto;
@@ -67,32 +65,32 @@
     align-items: center;
 
 }
-.info-btn{
+.info-btn1{
     margin-top: 10px;
     color: black;
 }
 
-.div1{
+.div11{
     display: flex;
 flex-direction: column;
 text-align: center;
 }
 
 
-.name{
+.name1{
     font-weight: bold;
 }
-.menuItem:hover{
+.menuItem1:hover{
     cursor: pointer;
     background-color: rgb(173, 215, 173);
 }
-.div1:hover{
+.div11:hover{
     cursor: pointer;
     background-color: rgb(173, 215, 173);
 
 }
 
-.active{
+.active1{
     background:var(--activeItem);
     margin-left: 0;
 }

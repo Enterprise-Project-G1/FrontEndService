@@ -5,18 +5,18 @@ import "../../../App.css";
 
 const Active = () => {
   return (
-    <div className="AppGlass">
+    <div className="AppGlass1">
       <Sidebar />
-      <div className="MainDash">
-        <div className="continer">
-          <h1 className="h1">Active Appointment</h1>
+      <div className="MainDash1">
+        <div className="continer1">
+          <h1 className="h11">Active Appointment</h1>
         </div>
 
-        <div className="outer">
-          <div className="p">
-            <div className="q">
+        <div className="outer1">
+          <div style={{width:"905px"}} className="p1">
+            <div style={{width:"605px"}} className="q1">
               <h2 style={{ color: "#57C5CA" }}>Medical Report</h2>
-              <div className="NDR">
+              <div className="NDR1">
                 <input
                   type="text"
                   //   value={inputValue}
@@ -45,7 +45,7 @@ const Active = () => {
                   placeholder="Report and Medication"
                 />
               </div>
-              <button className="bttn">Upload</button>
+              <button className="bttn1">Upload</button>
             </div>
           </div>
         </div>
