@@ -37,16 +37,7 @@
   }
 } */
 
-
-<<<<<<< HEAD
-<<<<<<< HEAD
 .App1{
-=======
-.App{
->>>>>>> 51d0bc8 (added doctor)
-=======
-.App{
->>>>>>> 51d0bc8 (added doctor)
   background: linear-gradient(
     106.37deg,
     #f0e5d8 29.63%,
@@ -64,15 +55,8 @@
 
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 .AppGlass1{
-=======
-.AppGlass{
->>>>>>> 51d0bc8 (added doctor)
-=======
-.AppGlass{
->>>>>>> 51d0bc8 (added doctor)
+
   /* display: grid; */
   height: 760px;
   display: flex;

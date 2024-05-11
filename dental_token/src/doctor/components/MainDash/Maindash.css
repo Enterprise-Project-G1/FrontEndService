@@ -1,10 +1,11 @@
-
-.MainDash1 {
+.MainDash {
+  /* display: flex;
+    flex-direction: column ;
+    justify-content: space-evenly; */
   width: 100%;
   height: 100%;
   border: 1px solid rgb(12, 4, 4);
   background-color: rgb(44, 42, 40);
-
   color: rgb(235, 229, 229); /* Set text color to white */
 }
 
@@ -22,25 +23,21 @@ table {
   border: 1px solid #ddd;
 }
 
-
-.th1,
-.td1 {
+th,
+td {
   padding: 8px;
   text-align: left;
   border-right: 1px solid #dddddd;
 }
 
-
-.btn-cont1 {
+.btn-cont {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 8px;
 }
 
-
-.btn-cont1 .button1 {
-
+.btn-cont button {
   background-color: #57C5CA;
   padding: 7px 10px;
   outline: none;
@@ -49,9 +46,7 @@ table {
   color: white;
   cursor: pointer;
 }
-
-.th1 {
-
+th {
   background-color: #ffffff;
   font-weight: bold;
   font-size: 150%;
@@ -59,14 +54,7 @@ table {
   height: 60px;
 }
 
-.tr1 {
-  border-bottom: 1px solid #dddddd;
-}
-.tr1:hover {
-  background-color: #7d787e;
-}
-
-.table1 {
+tr {
   border-bottom: 1px solid #dddddd;
 }
 tr:hover {
@@ -79,27 +67,24 @@ tr:hover {
   margin: 0 auto;
 }
 
-.border1 {
+.border {
   margin-top: 30px;
   background-color: white;
   background-color: rgb(44, 42, 40);
 }
-
-.border21 {
+.border2 {
   margin-top: 30px;
   background-color: rgb(155, 20, 20);
   background-color: rgb(216, 205, 194);
   height: 300px;
 }
 
-
-.medical1 {
+.medical {
   font-size: 20px;
   color: #2c8ae8;
   text-align: center;
 }
-
-.p1 {
+.p {
   background-color: #ffff;
   height: 456px;
   width: 775px;
@@ -110,8 +95,8 @@ tr:hover {
   justify-content: center;
   align-items: center;
 }
-
-.q1 {
+.q {
+  /* background-color: #414e5a; */
   height: 426px;
   width: 605px;
   display: flex;
@@ -119,14 +104,12 @@ tr:hover {
   justify-content: space-around;
   align-items: center;
 }
-
-.NDR1 {
+.NDR {
   display: flex;
   flex-direction: row;
   gap: 25px;
 }
-
-.bttn1 {
+.bttn {
   background-color: #373c3e;
   height: 37px;
   width: 134px;
@@ -134,7 +117,7 @@ tr:hover {
   margin-left: 0px;
 }
 
-.continer1 {
+.continer {
   background: #FFF;
   height: 100px;
   width: 100%;
@@ -144,26 +127,6 @@ tr:hover {
   padding-left: 20px;
 }
 
-
-.p11 {
-  display: flex;
-}
-.p21 {
-  display: flex;
-  text-align: center;
-}
-.p31 {
-  display: flex;
-}
-.p41 {
-  margin-top: 60px;
-  justify-content: left;
-}
-.lin1 {
-  border-radius: 2px;
-  border-color: #7d787e;
-}
-.input1 {
 .p1 {
   display: flex;
 }
@@ -190,8 +153,8 @@ input {
   font-size: 16px;
   border-bottom: 1px solid #57c5ca;
 }
-
-.outer1 {
+.outer {
+  /* background-color: #2c8ae8; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -201,5 +164,4 @@ input {
 ::placeholder {
   color: #57c5ca;
   opacity: 1;
-}
 }
