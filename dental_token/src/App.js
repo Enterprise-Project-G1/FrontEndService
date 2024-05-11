@@ -3,11 +3,14 @@ import { BrowserRouter as Router,Routes,Route } from 'react-router-dom'
 import Active from './doctor/ActiveAppointment/Active/ActiveApp';
 import Maindash from './doctor/components/MainDash/Maindah';
 import Login from './doctor/components/Login';
+// import Mrouters from "./"
+import Mrouters from "./Mrouters";
 
 
 function App() {
   return(
     <>
+    <Mrouters/>
     <Router>
       <Routes>
           <Route path='/' element={<Login/>}/>
