@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,35 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+
+.App{
+  background: linear-gradient(
+    106.37deg,
+    #f0e5d8 29.63%,
+    #f0dbdc 51.55%,
+    #f2eaf2 90.85%
+
+
+
+  );
+  /* height: 100vh; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter", sans-serif; 
+
+}
+
+.AppGlass{
+  /* display: grid; */
+  height: 760px;
+  display: flex;
+  width: 100%;
+  border: none;
+  /* border-radius: 2rem; */
+  background-color: var(--glass);
+  /* overflow: hidden; */
+  grid-template-columns: 14rem auto;
 }
