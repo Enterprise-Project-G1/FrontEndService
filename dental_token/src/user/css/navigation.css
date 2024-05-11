@@ -1,0 +1,59 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #373c3e;
+    color: #ffffff;
+    height: 60px;
+    padding: 0 20px; /* Add padding to the navbar */
+  }
+  
+  .navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    column-gap: 50px;
+  }
+  
+  /* .navbar .left-links {
+    margin-right: auto; /* Move left links closer to the center 
+  }
+  
+  .navbar .right-links {
+    margin-left: auto; /* Move right links closer to the center 
+  } */
+  
+ 
+  .navbar a {
+    text-decoration: none;
+    color: #ffffff;
+    position: relative; /* Add position relative for pseudo-element */
+  }
+  
+  /* .navbar .left-links :hover {
+    border-bottom: 1px solid #ffffff; /* Add border-bottom when hovered 
+  } */
+  
+  .navbar .left-links :hover::after {
+    content: ""; /* Add empty content for pseudo-element */
+    position: absolute; /* Position absolute for pseudo-element */
+    bottom: 0; /* Align pseudo-element to the bottom */
+    left: 0; /* Align pseudo-element to the left */
+    width: 100%; /* Set pseudo-element width to 100% */
+    height: 1px; /* Set pseudo-element height */
+    background-color: #ffffff; /* Set pseudo-element background color */
+  }
+  
+
+  .left-links,.right-links{
+    width: 350px;
+    display: flex;
+    justify-content: flex-end;
+
+  }
+  .right-links{
+    width: 500px;
+    justify-content: space-around;
+}

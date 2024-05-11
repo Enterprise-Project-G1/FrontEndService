@@ -37,7 +37,8 @@
   }
 } */
 
-.App1{
+
+.App{
   background: linear-gradient(
     106.37deg,
     #f0e5d8 29.63%,
@@ -55,8 +56,7 @@
 
 }
 
-.AppGlass1{
-
+.AppGlass{
   /* display: grid; */
   height: 760px;
   display: flex;
