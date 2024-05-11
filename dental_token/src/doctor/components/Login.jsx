@@ -23,22 +23,18 @@ const Login = () => {
       <div className="login-form">
         <h1>Login to Your Account</h1>
         <input
-          style={{ borderRadius: "7px" }}
-          className="input1"
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
-          style={{ borderRadius: "7px" }}
-          className="input1"
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="button1" onClick={handleLogin}>Login</button>
+        <button onClick={handleLogin}>Login</button>
       </div>
       <div className="login-illustration">
         <p>Plant smiles for a better world</p>

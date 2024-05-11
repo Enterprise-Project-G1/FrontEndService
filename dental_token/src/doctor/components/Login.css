@@ -1,3 +1,4 @@
+/* CSS for Login Page */
 .login-container {
     display: flex;
     width: 100%;
@@ -48,10 +49,11 @@
     align-items: center;
     color: white;
     padding: 70px;
+    /* margin-top: 30%; */
   }
   
   .login-illustration p {
-    font-size: 500%; 
+    font-size: 500%; /* Increase font size */
     margin: 0;
     margin-bottom: 30%;
     font-family: "Roboto";
@@ -59,4 +61,20 @@
     margin-top: 5%;
   }
   
+  /* .login-illustration .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: white;
+    margin: auto; 
+    width: 200px; 
+    height: 200px; 
+  }
+  
+  .login-illustration .logo-container img {
+      width: 100%; 
+      height: auto; 
+    }
+     */
   

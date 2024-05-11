@@ -12,20 +12,20 @@ import { FiLogOut } from "react-icons/fi";
 
 const Sidebar = () => {
     return (
-        <div className="Sidebar1">
-            <div style={{height:"120px",width:"120px"}}  className="logo1">
-                <img style={{height:"120px",width:"120px"}} src={Logo} alt="" />
+        <div className="Sidebar">
+            <div className="logo">
+                <img src={Logo} alt="" />
             </div>
 
-            <div className="line1"></div>
+            <div className="line"></div>
 
-            <div className="menu1">
-                    <div className="menuItem1 ">
+            <div className="menu">
+                    <div className="menuItem ">
                         <span style={{fontSize:"20px"}}><TbReportAnalytics /></span>
                         {/* <span>Appointment</span> */}
                         <Link exact to="/dashboard">Appointment</Link>
                     </div>
-                    <div className="menuItem1">
+                    <div className="menuItem">
                         <span style={{fontSize:"20px"}}><TbFileText /></span>
                         {/* <span>Active Appointment</span> */}
                         <Link to="/activeapp">Active Appointment</Link>
@@ -34,15 +34,15 @@ const Sidebar = () => {
             
 
             </div>
-            <div className="line1 line21"></div>
+            <div className="line line2"></div>
 
-            <div className="doctorInfo1">
-                <div className="div11">
-                    <p className="name1">Tashi Wangyal</p>
+            <div className="doctorInfo">
+                <div className="div1">
+                    <p className="name">Tashi Wangyal</p>
                     <p>Dentist</p>
                 </div>
 
-                <div className="info-btn1">
+                <div className="info-btn">
             <button style={{backgroundColor:"#373c3e", color:"white"}}><span style={{fontSize:"19px"}}><FiLogOut /> </span>Log Out</button>
                 </div >
             
