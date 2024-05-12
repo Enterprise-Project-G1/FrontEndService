@@ -1,12 +1,10 @@
 // Login.jsx
 import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import "../css/login.css";
 import { Link } from 'react-router-dom';
-// import logo from "../image/logo.png";
 import logo from "../img/logo.png"
 
-const Login = () => {
+const Loginuser = () => {
 //   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -59,5 +57,5 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Loginuser;
 

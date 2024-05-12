@@ -14,7 +14,7 @@ const MainRouter = () => {
             <Route path='/dashboard' element={<Dashboard/>}/>
             <Route path='/users' element={<Users/>}/>
             <Route path='/feedbacks' element={<Feedback/>}/>
-            <Route path='*' element={<h1>Note Found</h1>}/>
+            {/* <Route path='*' element={<h1>Note Found</h1>}/> */}
         </Routes>
       </Router>
      </>
