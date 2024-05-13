@@ -41,8 +41,8 @@
     /* color: aqua; */
 }
 
-.hr1,
-.hr2 {
+.hr11,
+.hr22 {
     flex: 1;
     /* This will make the lines take up equal space on both sides of the icon */
     margin: 0 10px;

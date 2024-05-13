@@ -31,7 +31,7 @@ const Token = () => {
         <div className="hero-image">
           <img
             src={Smile}
-            alt="Hero Image"
+            alt="HeroImage"
             style={{
               maxWidth: "400px",
               height: "auto",
@@ -48,13 +48,13 @@ const Token = () => {
       <div className="section">
         <h3 className="section-title" style={{color:'#57C5CA'}}>Active Token</h3>
         <div className="section-layer">
-          <div className="hr1">
+          <div className="hr11">
             <hr></hr>
           </div>
           <div className="icon">
             <Icon icon="mdi:tooth-outline" />
           </div>
-          <div className="hr2">
+          <div className="hr22">
             <hr></hr>
           </div>
         </div>
@@ -76,13 +76,13 @@ const Token = () => {
             <div>
               <h3 style={{ marginTop: "-4%", color:'#57C5CA', textAlign:"center"}}>Book Now</h3>
               <div className="section-layer">
-                <div className="hr1">
+                <div className="hr11">
                   <hr></hr>
                 </div>
                 <div className="icon">
                   <Icon className="section-icon" icon="mdi:tooth-outline" />
                 </div>
-                <div className="hr2">
+                <div className="hr22">
                   <hr></hr>
                 </div>
               </div>
