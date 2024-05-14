@@ -16,16 +16,6 @@ function App() {
     <>
     <Mrouters/>
     <ToastContainer/>
-    {/* <MainRouter/>
-    <DoctorRouter/> */}
-    {/* <Router>
-      <Routes>
-          <Route path='/' element={<Login/>}/>
-          <Route path='/dashboard' element={<Maindash/>}/>
-          <Route path='/activeapp' element={<Active/>}/>
-          <Route path='*' element={<h1>Not Found</h1>}/>
-      </Routes>
-    </Router> */}
    </>
   
   )

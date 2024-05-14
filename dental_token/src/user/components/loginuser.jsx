@@ -1,7 +1,7 @@
 // Login.jsx
 import React, { useState } from "react";
 import "../css/login.css";
-import { useDispatch, useSelector} from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify';
 import { setCredentials } from "../slices/authSlice";
@@ -24,7 +24,8 @@ const Loginuser = () => {
     try{
         const res = await login({email, password}).unwrap();
         dispatch(setCredentials({...res,}));
-        navigate("/dashboard")
+        toast.success("Login Successful!")
+        navigate("/")
     }catch(err){
         toast.error(err?.data?.message || err.error)
     }
