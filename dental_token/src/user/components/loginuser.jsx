@@ -1,20 +1,33 @@
 // Login.jsx
 import React, { useState } from "react";
 import "../css/login.css";
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector} from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import {toast} from 'react-toastify';
+import { setCredentials } from "../slices/authSlice";
+import { useLoginMutation } from '../slices/usersApiSlice'
+
 import logo from "../img/logo.png"
 
 const Loginuser = () => {
-//   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    // Handle login logic here
-    console.log("Email:", email);
-    console.log("Password:", password);
-    // If login is successful, navigate to the dashboard
-    // navigate("/dashboard");
+  const [login] = useLoginMutation();
+
+
+  const handleLogin = async(e) => {
+    e.preventDefault()
+    // console.log('submit')
+    try{
+        const res = await login({email, password}).unwrap();
+        dispatch(setCredentials({...res,}));
+        navigate("/dashboard")
+    }catch(err){
+        toast.error(err?.data?.message || err.error)
+    }
   };
 
   return (
@@ -33,7 +46,7 @@ const Loginuser = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Link to="/home" className="buttonl" onClick={handleLogin}>Login</Link>
+        <Link className="buttonl" onClick={handleLogin}>Login</Link>
         <p className="nn">
           Don't have an account? <Link  to="/Signup" style={{ color: 'black', textDecoration: 'underline' }}>Register</Link>
         </p>
