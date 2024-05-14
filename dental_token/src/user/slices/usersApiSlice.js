@@ -1,4 +1,4 @@
-import { USERS_URL } from "../../constants";
+import { FEEDBACK_URL, USERS_URL } from "../../constants";
 import { PATIENT_URL } from "../../constants";
 import { apiSlice } from "./apiSlice";
 
@@ -25,9 +25,15 @@ export const usersApliSlice = apiSlice.injectEndpoints({
                 body: data
             }),
         }),
- 
+        feedback: builder.mutation({
+            query: (data) => ({
+                url: FEEDBACK_URL ,
+                method: 'POST',
+                body: data
+            }),
+        }),
     })
 })
 
 
-export const { useLoginMutation, useLogoutMutation, useRegisterMutation } = usersApliSlice;
+export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useFeedbackMutation } = usersApliSlice;

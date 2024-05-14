@@ -1,63 +1,49 @@
-// Home.jsx
-// import React from 'react';
-// import Footer from './footer';
-// import Nav from './navigation';
-// import Header from './header';
-
-// const Home = () => {
-//   return (
-//     <>
-// <Header/>
-// <Nav/>
-//     <div>
-//       <h2>Home Page</h2>
-//       <p>Welcome to the Home Page!</p>
-//     </div>
-//     <Footer/>
-//     </>
-//   );
-// };
-
-// export default Home;
 import React, { useState } from 'react';
-// import './Home.css';
 import "../../user/css/Home.css";
-// import Smile from './images/smile.png';
 import Smile from "../../user/img/smile.png";
 import { Icon } from '@iconify/react';
-// import Logo from './images/fin LOGO.png';
 import Logo from "../../user/img/fin LOGO.png";
-// import Feedback from './images/feedback.png';
-import Feedback from "../../user/img/feedback.png";
+import FeedbackImg from "../../user/img/feedback.png";
 import Header from './header';
 import Footer from './footer';
 import Nav from './navigation';
+import { useFeedbackMutation } from '../slices/usersApiSlice';
+import {toast} from 'react-toastify';
 
 const Home = () => {
+  const [postFeedback] = useFeedbackMutation();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [feedback, setFeedback] = useState('');
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    feedback: ''
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
+  const handleNameChange = (e) => {
+    setName(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleFeedbackChange = (e) => {
+    setFeedback(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    setFormData({
-      name: '',
-      email: '',
-      feedback: ''
-    });
+    if(name === "" || email === "" || feedback === ""){
+      toast.error("All fields are required!")
+    }else{
+      try{
+        await postFeedback({name, email, feedback}).unwrap();
+        toast.success("Feedback sent successfully!")
+        window.location.reload();
+      }catch(err){
+          toast.error(err?.data?.message || err.error)
+      }
+    }
+    
   };
+
   return (
     <div>
       {/* Hero Banner */}
@@ -185,7 +171,7 @@ const Home = () => {
       </div>
       <div className="section-form">
         <div className="form-image">
-          <img src={Feedback} alt="Logo" />
+          <img src={FeedbackImg} alt="Feedback" />
         </div>
         <div className='form-fields'>
           <form onSubmit={handleSubmit} className='form-container10'>
@@ -193,43 +179,29 @@ const Home = () => {
               className='in12'
               type="text"
               id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
+              value={name}
+              onChange={handleNameChange}
               placeholder='Name'
               required
-              style={{
-                width: "100%",
-                padding: "15px 8px",
-                border: "none",
-                borderBottom: "2px solid #FFFFFF",
-                color: "#FFFFFF",
-                background: "transparent",
-                fontSize: "16px",
-                outline: "none",
-                marginRight:"18%"
-              }}
             />
             <input
               className='in12'
               type="email"
               id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder='email'
+              value={email}
+              onChange={handleEmailChange}
+              placeholder='Email'
               required
             />
             <textarea
               className='in13'
               id="feedback"
-              name="feedback"
-              value={formData.feedback}
-              onChange={handleChange}
-              placeholder='feedback'
+              value={feedback}
+              onChange={handleFeedbackChange}
+              placeholder='Feedback'
               required
             />
-            <div className='form-submit' type="submit">Submit</div>
+            <button onClick={handleSubmit} type="submit" className='form-submit'>Submit</button>
           </form>
         </div>
       </div>
@@ -239,4 +211,3 @@ const Home = () => {
 };
 
 export default Home;
-
