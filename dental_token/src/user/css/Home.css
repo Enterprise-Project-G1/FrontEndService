@@ -9,7 +9,7 @@
   width: 400px;
 }
 
-.hero-title {
+.hero-title12 {
   padding-top: 20px;
   font-size: 96px;
   color: #ffffff;
@@ -130,18 +130,18 @@ p {
   margin-left: 10%;
 }
 
-.description {
+.description1 {
   flex: 1;
 }
 
-.description h1 {
-  font-size: 48px;
-  width: 327px;
+.he {
+  font-size: 40px;
+  width: 300px;
   text-align: start;
   color: #57C5CA;
 }
 
-.description p {
+.description1 p {
   padding-left: 0px;
   width: 780px;
   text-align: start;
@@ -240,7 +240,7 @@ p {
   outline: none;
 }
 
-.in13{
+.in13 {
   resize: none;
   min-height: 100px;
 }

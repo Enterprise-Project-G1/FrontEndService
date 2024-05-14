@@ -1,17 +1,17 @@
-.hero-banner {
+.hero-banner123 {
     background-color: #57C5CA;
     /* max-height: max-content; */
 }
 
-.hero-content {
+.hero-content123 {
     text-align: left;
     padding: 20px;
     /* background-color: #666; */
-    margin-left: 2%;
+    margin-left: 3%;
     color: white;
 }
 
-.hero-title {
+.hero-title123 {
     font-size: 400%;
     /* background-color: bisque; */
     text-align: start;
@@ -19,7 +19,7 @@
     font-family: Roboto;
 }
 
-.hero-description {
+.hero-description123 {
     font-size: 1rem;
     /* Sets the size of the description text */
     /* background-color: blue; */
@@ -58,7 +58,7 @@
     font-size: 300%;
     font-weight: 700;
     /* margin-right: %; */
-    margin-left: 35%;
+    margin-left: 37%;
     margin-top: 1%;
     color: #57C5CA;
 
@@ -68,7 +68,7 @@
     font-size: 300%;
     font-weight: 700;
     margin-left: 60%;
-    margin-top: -6.9%;
+    margin-top: -4%;
     color: #57C5CA;
 }
 
@@ -81,8 +81,8 @@
     text-align: center;
 }
 
-.form {
-    background-color: black;
+.form123{
+    background-color: #373c3e;
     /* Sets a blue border */
     padding: 20px;
     /* Adds some space inside the border */
@@ -90,9 +90,10 @@
     /* Adds some space outside the border */
     color: #57C5CA;
     width: 40%;
-    height: 40%;
+    height: 50%;
     text-align: center;
     margin-left: 30%;
+    margin-bottom: 5%;
 }
 
 input[type="text"],
@@ -112,7 +113,7 @@ input[type="tel"] {
     outline: none;
     /* Removes the default focus outline */
     width: 60%;
-    background-color: black;
+    background-color: #373c3e;
     margin-left: 20%;
 }
 

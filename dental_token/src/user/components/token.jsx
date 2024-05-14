@@ -14,10 +14,10 @@ const Token = () => {
       {/* Hero Banner */}
       <Header/>
       <Nav/>
-      <div className="hero-banner">
-        <div className="hero-content">
-          <h1 className="hero-title">Book Appointment</h1>
-          <p className="hero-description">
+      <div className="hero-banner123">
+        <div className="hero-content123">
+          <h1 className="hero-title123" style={{marginLeft:"2%"}}>Book Appointment</h1>
+          <p className="hero-description123">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -28,17 +28,17 @@ const Token = () => {
           </p>
           {/* <button className='hero-button'>Book Appointment</button> */}
         </div>
-        <div className="hero-image">
+        <div className="hero-image1">
           <img
             src={Smile}
             alt="HeroImage"
             style={{
-              maxWidth: "400px",
+              maxWidth: "500px",
               height: "auto",
               float: "right",
               // marginLeft: '10%',
               marginRight: "10%",
-              marginTop: "-21.1%",
+              marginTop: "-24.9%",
             }}
           />
         </div>
@@ -64,10 +64,14 @@ const Token = () => {
           <section className="active-token">
             <div>
               <div className="num1">
-                <p>99</p>
+                {/* <p> <Icon icon="mdi:tooth-outline" /></p> */}
+                <Icon icon="material-symbols:format-quote-outline" />
+
               </div>
               <div className="num2">
-                <p>99</p>
+                {/* <p> <Icon icon="mdi:tooth-outline" /></p> */}
+                <Icon icon="material-symbols:format-quote-outline" />
+
               </div>
               <div className="num3">
                 <p>12</p>
@@ -88,8 +92,8 @@ const Token = () => {
               </div>
             </div>
           </section>
-          <div className="form">
-            <form id="booking-form">
+          <div className="form123">
+            <form id="booking-form123">
               <h3>Get your turn now</h3>
               <input type="text" name="Date" placeholder="Date" style={{color:'blue'}} />
               <input type="tel" name="phone" placeholder="Reason" />

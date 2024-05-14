@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import "../css/signup.css";
 import { toast } from 'react-toastify';
-import logo from "../img/logo.png";
+// import logo from "../img/logo.png";
 import { useRegisterMutation } from '../slices/usersApiSlice';
+// import logo from "../image/logo.png";
+// import logo from "../img/logo.png";
+import logo from "../img/fin LOGO.png";
 
 const Signup = () => {
   const navigate = useNavigate();

@@ -1,47 +1,59 @@
-// Profile.jsx
-
 import React from 'react';
-import ProfileImage from '../img/doctors.png'; // Import your profile image
+import ProfileImage from '../img/profile.png';
 import '../css/profile.css';
 import Header from './header';
-import Footer from './footer';
 import Nav from './navigation';
+import Footer from './footer';
 
 const Profile = () => {
   return (
-    <>
-    <Header/>
-    <Nav/>
+
     <div className="profile-container">
+      <Header/>
+      <Nav/>
       <h2 className="profile-title">Account Details</h2>
       <div className="profile-section">
-        <div className="profile-image">
-          <img src={ProfileImage} alt="Profile" />
+        <div className="profile-image-section">
+          <img src={ProfileImage} alt="Profile" className="profile-image" />
         </div>
-        <div className="profile-details">
-          <p><strong>Account Name:</strong> John Doe</p>
-          <p><strong>DOB:</strong> January 1, 1990</p>
-          <p><strong>Email:</strong> johndoe@example.com</p>
-          <p><strong>Contact No:</strong> +1234567890</p>
-          <p><strong>Gender:</strong> Male</p>
+        <div className="profile-details-section">
+          <div className="profile-details-row">
+            <p><strong>Tashi Wangyel</strong></p>
+          </div>
+          <div className="profile-details-row double">
+            <p>
+              <span className="label">DOB:</span>
+              <strong>20/04/2002</strong>
+            </p>
+            <p>
+              <span className="label">Email:</span>
+              <strong>bajayfs@gmail.com</strong>
+            </p>
+          </div>
+          <div className="profile-details-row double">
+            <p>
+              <span className="label">Contact No:</span>
+              <strong>77864017</strong>
+            </p>
+            <p>
+              <span className="label">Gender:</span>
+              <strong>Male</strong>
+            </p>
+          </div>
         </div>
       </div>
       <h2 className="documents-title">My Documents</h2>
       <div className="documents-container">
-        <div className="document">
-          <p>Date: January 1, 2024</p>
-        </div>
-        <div className="document">
-          <p>Date: February 15, 2024</p>
-        </div>
-        <div className="document">
-          <p>Date: March 10, 2024</p>
-        </div>
-        {/* Add more documents as needed */}
+        {[1, 2, 3, 4, 5, 6].map((_, index) => (
+          <div className="document" key={index}>
+            <div className="document-content">
+              <p className='date'>12/03/2024</p>
+            </div>
+          </div>
+        ))}
       </div>
+      <Footer/>
     </div>
-    <Footer/>
-    </>
   );
 };
 

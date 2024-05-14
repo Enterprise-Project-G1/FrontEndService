@@ -19,12 +19,12 @@
     font-family: "Roboto";
   }
   
-  .login-form input {
+  .in {
     display: block;
-    width: 33%;
+    width: 40%;
     margin-bottom: 30px;
     padding: 10px;
-    margin-left: 31.6%;
+    margin-left: 28%;
     /* border-radius: 5%; */
     font-family: "Roboto";
     background-color: #57c5ca;

@@ -1,50 +1,67 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #ffffff; /* Swap background and font colors */
-    color: #373c3e; /* Swap background and font colors */
-    height: 80px;
-    padding: 0 20px;
-    margin-bottom: 50px;
-  }
-  
-  .left-section {
-    display: flex;
-    flex-direction: column; /* Align logo and logo name vertically */
-    align-items: center;
-    padding-left: 100px;
-  }
-  
-  .logo {
-    width: 77px;
-    padding-top: 77px;
-  }
-  
-  .logo-name {
-    margin-top: 2px; /* Add margin to separate logo and logo name */
-    font-size: 14px;
-  }
-  
-  .right-section {
-    display: flex;
-    padding-right: 100px;
-    padding-top: 25px;
-  }
-  
-  .contact-info {
-    display: flex;
-    align-items: center;
-    margin-left: 20px;
-  }
-  
-  .contact-info:not(:last-child) {
-    margin-right: 10px; /* Add space between contact info items */
-  }
-  
-  .contact-icon {
-    margin-right: 10px; /* Add space between icon and font */
-    width: 24px;
-    height: 24px;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff; /* Swap background and font colors */
+  color: #373c3e; /* Swap background and font colors */
+  height: 80px;
+  padding: 0 20px;
+  margin-bottom: 50px;
+}
+
+.left-section {
+  display: flex;
+  flex-direction: column; /* Align logo and logo name vertically */
+  align-items: center;
+  padding-left: 150px;
+  /* margin-top: 50px; */
+  /* padding-top: 70px; */
+}
+
+.logo {
+  width: 77px;
+  padding-top: 77px;
+}
+
+.logo-name {
+  margin-top: 2px; /* Add margin to separate logo and logo name */
+  font-size: 14px;
+}
+
+.right-section {
+  display: flex;
+  padding-right: 150px;
+  padding-top: 50px;
+
+}
+
+.contact-info {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.contact-info:not(:last-child) {
+  margin-right: 10px; /* Add space between contact info items */
+}
+
+.mail-info {
+  display: flex;
+  align-items: center;
+  margin-left: 50px;
+}
+
+.mail-info:not(:last-child) {
+  margin-right: 10px; /* Add space between contact info items */
+}
+
+.contact-icon {
+  margin-right: 15px; /* Add space between icon and font */
+  width: 27px;
+  height: 27px;
+}
+.mail-icon {
+  margin-right: 10px; /* Add space between icon and font */
+  width: 34px;
+  height: 24px;
+}
