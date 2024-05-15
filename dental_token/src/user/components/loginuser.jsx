@@ -1,19 +1,16 @@
 // Login.jsx
 import React, { useState } from "react";
 import "../css/login.css";
-<<<<<<< HEAD
 import { useDispatch} from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify';
 import { setCredentials } from "../slices/authSlice";
 import { useLoginMutation } from '../slices/usersApiSlice'
 
-import logo from "../img/logo.png"
-=======
-import { Link } from 'react-router-dom';
+// import logo from "../img/logo.png"
+// import { Link } from 'react-router-dom';
 // import logo from "../img/logo.png"
 import logo from "../img/fin LOGO.png";
->>>>>>> 3004e25 (added profile)
 
 const Loginuser = () => {
   const dispatch = useDispatch();
@@ -43,14 +40,14 @@ const Loginuser = () => {
         <h1>Login to Your Account</h1>
         <input
         className="in"
-          // type="email"
+          type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
         className="in"
-          // type="password"
+          type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
