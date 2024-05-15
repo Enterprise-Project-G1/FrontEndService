@@ -28,17 +28,18 @@ const Token = () => {
           </p>
           {/* <button className='hero-button'>Book Appointment</button> */}
         </div>
-        <div className="hero-image1">
+        <div className="hero-image13">
           <img
             src={Smile}
             alt="HeroImage"
             style={{
-              maxWidth: "500px",
-              height: "auto",
+              // maxWidth: "1000px",
+              // width:"auto",
+              height: "600px",
               float: "right",
               // marginLeft: '10%',
-              marginRight: "10%",
-              marginTop: "-24.9%",
+              marginRight: "6%",
+              marginTop: "-29.7%",
             }}
           />
         </div>
@@ -95,8 +96,8 @@ const Token = () => {
           <div className="form123">
             <form id="booking-form123">
               <h3>Get your turn now</h3>
-              <input type="text" name="Date" placeholder="Date" style={{color:'blue'}} />
-              <input type="tel" name="phone" placeholder="Reason" />
+              <input className="in33" type="text" name="Date" placeholder="Date" style={{color:'blue'}} />
+              <input className="in34" type="tel" name="phone" placeholder="Reason" />
               <button type="submit">Book Appointment</button>
               {/* <h3>Book Now</h3> */}
             </form>

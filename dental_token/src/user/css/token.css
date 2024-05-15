@@ -1,5 +1,6 @@
 .hero-banner123 {
     background-color: #57C5CA;
+    height: 70vh;
     /* max-height: max-content; */
 }
 
@@ -9,6 +10,7 @@
     /* background-color: #666; */
     margin-left: 3%;
     color: white;
+    /* margin-top: 7%; */
 }
 
 .hero-title123 {
@@ -17,6 +19,7 @@
     text-align: start;
     width: 30%;
     font-family: Roboto;
+    margin-top: 5%;
 }
 
 .hero-description123 {
@@ -28,7 +31,7 @@
     font-family: Roboto;
 }
 
-.section-title{
+.section-title {
     text-align: center;
 }
 
@@ -81,7 +84,7 @@
     text-align: center;
 }
 
-.form123{
+.form123 {
     background-color: #373c3e;
     /* Sets a blue border */
     padding: 20px;
@@ -96,8 +99,9 @@
     margin-bottom: 5%;
 }
 
-input[type="text"],
-input[type="tel"] {
+
+.in33,
+.in34 {
     color: #57C5CA;
     display: block;
     /* Makes each input and button take up the full width */
