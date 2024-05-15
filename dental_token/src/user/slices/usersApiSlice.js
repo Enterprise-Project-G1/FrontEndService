@@ -32,8 +32,15 @@ export const usersApliSlice = apiSlice.injectEndpoints({
                 body: data
             }),
         }),
+        getFeedback: builder.query({
+            query: () => ({
+                url: FEEDBACK_URL 
+            }),
+            providesTags: ['Feedbacks']
+        }),
     })
 })
 
 
-export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useFeedbackMutation } = usersApliSlice;
+export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useFeedbackMutation,
+    useGetFeedbackQuery } = usersApliSlice;

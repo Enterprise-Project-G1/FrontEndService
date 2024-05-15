@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "../../user/css/Home.css";
 import Smile from "../../user/img/smile.png";
 import { Icon } from '@iconify/react';
@@ -7,14 +7,22 @@ import FeedbackImg from "../../user/img/feedback.png";
 import Header from './header';
 import Footer from './footer';
 import Nav from './navigation';
-import { useFeedbackMutation } from '../slices/usersApiSlice';
-import {toast} from 'react-toastify';
+import { useFeedbackMutation, useGetFeedbackQuery } from '../slices/usersApiSlice';
+import { toast } from 'react-toastify';
 
 const Home = () => {
+  const { data: feedbacks, error, isLoading } = useGetFeedbackQuery();
   const [postFeedback] = useFeedbackMutation();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [feedback, setFeedback] = useState('');
+  const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
+
+  useEffect(() => {
+    if (error) {
+      toast.error("Failed to fetch testimonials");
+    }
+  }, [feedbacks, error]);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -28,20 +36,28 @@ const Home = () => {
     setFeedback(e.target.value);
   };
 
+  const handleNextTestimonial = () => {
+    setCurrentTestimonialIndex((prevIndex) => (prevIndex + 1) % feedbacks.length);
+  };
+
+  const handlePreviousTestimonial = () => {
+    setCurrentTestimonialIndex((prevIndex) => (prevIndex === 0 ? feedbacks.length - 1 : prevIndex - 1));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(name === "" || email === "" || feedback === ""){
+    if (name === "" || email === "" || feedback === "") {
       toast.error("All fields are required!")
-    }else{
-      try{
-        await postFeedback({name, email, feedback}).unwrap();
+    } else {
+      try {
+        await postFeedback({ name, email, feedback }).unwrap();
         toast.success("Feedback sent successfully!")
         window.location.reload();
-      }catch(err){
-          toast.error(err?.data?.message || err.error)
+      } catch (err) {
+        toast.error(err?.data?.message || err.error)
       }
     }
-    
+
   };
 
   return (
@@ -130,8 +146,6 @@ const Home = () => {
             cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
       </div>
-
-      {/* Section with Form */}
       <div className="section">
         <h3 className='section-title'>Testimoials</h3>
         <div className="section-layer">
@@ -141,25 +155,26 @@ const Home = () => {
         </div>
       </div>
       <div className='testimonials'>
-        <div className='testCard'>
-          <div className='icon10'>
-            <Icon className='arrow10 left' icon="oui:arrow-left" />
-          </div>
-          <div className='test-main-content'>
-            <div className='quote10'>
-              <Icon className='quote-icon10' icon="material-symbols:format-quote-outline" />
+        {isLoading && <p>Loading testimonials...</p>}
+        {feedbacks && feedbacks.length > 0 && (
+          <div className='testCard'>
+            <div onClick={handlePreviousTestimonial} className='icon10'>
+              <Icon className='arrow10 left' icon="oui:arrow-left" />
             </div>
-            <div className='test-content'>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                dolor in reprehenderit in voluptate velit esse </p>
-              <p>~ Tashi Wangyel</p>
+            <div className='test-main-content'>
+              <div className='quote10'>
+                <Icon className='quote-icon10' icon="material-symbols:format-quote-outline" />
+              </div>
+              <div className='test-content'>
+                <p>{feedbacks[currentTestimonialIndex].feedback}</p>
+                <p>~ {feedbacks[currentTestimonialIndex].name}</p>
+              </div>
+            </div>
+            <div onClick={handleNextTestimonial} className='icon10'>
+              <Icon className='arrow10 right' icon="oui:arrow-right" />
             </div>
           </div>
-          <div className='icon10'>
-            <Icon className='arrow10 right' icon="oui:arrow-right" />
-          </div>
-        </div>
+        )}
       </div>
       <div className="section">
         <h3 className='section-title'>Feedback</h3>

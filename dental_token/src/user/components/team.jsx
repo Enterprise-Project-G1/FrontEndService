@@ -1,11 +1,7 @@
-// Team.jsx
-
 import React from "react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import Doctors from "../img/doctors.png";
 import Tashi from "../img/tashi.png";
-import Tenzin from "../img/tenzin.png";
-import Sancho from "../img/sancho.png";
 
 import "../css/team.css";
 import Header from "./header";

@@ -1,19 +1,13 @@
 // Login.jsx
 import React, { useState } from "react";
 import "../css/login.css";
-<<<<<<< HEAD
 import { useDispatch} from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify';
 import { setCredentials } from "../slices/authSlice";
 import { useLoginMutation } from '../slices/usersApiSlice'
-
-import logo from "../img/logo.png"
-=======
-import { Link } from 'react-router-dom';
 // import logo from "../img/logo.png"
 import logo from "../img/fin LOGO.png";
->>>>>>> 3004e25 (added profile)
 
 const Loginuser = () => {
   const dispatch = useDispatch();
