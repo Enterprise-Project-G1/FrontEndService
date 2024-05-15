@@ -35,7 +35,7 @@ const Token = () => {
             style={{
               // maxWidth: "1000px",
               // width:"auto",
-              height: "600px",
+              height: "650px",
               float: "right",
               // marginLeft: '10%',
               marginRight: "6%",
