@@ -1,14 +1,64 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "../css/token.css";
-// import Smile from "../image/smile.png";
 import Smile from "../img/smile.png";
-
 import { Icon } from "@iconify/react";
 import Header from "./header";
 import Footer from "./footer";
 import Nav from "./navigation";
+import { usePostAppointmentMutation, useGetPatientQuery } from "../slices/usersApiSlice";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Token = () => {
+  const [postAppointment] = usePostAppointmentMutation();
+  const { data: patients, error} = useGetPatientQuery();
+  const { userInfo } = useSelector(state => state.auth);
+  const [patientData, setPatientData] = useState(null);
+  const [patientId, setPatientId] = useState(null);
+  const [date, setDate] = useState(null);
+  const [reason, setReason] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (error) {
+      toast.error("Failed to fetch patient details");
+    }
+    if (patients && userInfo) {
+      const patient = patients.find(patient => patient.email === userInfo.user.username);
+      if (patient) {
+        setPatientData(patient);
+        setPatientId(patient.id);
+      }
+    }
+  }, [patients, userInfo, error, patientData]);
+
+  const handleDateChange = (e) => {
+    setDate(e.target.value);
+  }
+
+  const hadleReasonChange = (e) => {
+    setReason(e.target.value);
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if(!userInfo){
+      toast.error("Please login to book appointment!");
+      navigate('/login');
+    }else if(patientId === "" || date === "" || reason === ""){
+      toast.error("All fields are required!")
+    }else{
+      try{
+        await postAppointment({patientId, date, reason}).unwrap();
+        toast.success("Appointment Sent Successfully!")
+        window.location.reload();
+      }catch (err){
+        toast.error(err?.data?.message || err.error)
+      }
+    }
+  };
+
   return (
     <div>
       {/* Hero Banner */}
@@ -96,9 +146,9 @@ const Token = () => {
           <div className="form123">
             <form id="booking-form123">
               <h3>Get your turn now</h3>
-              <input className="in33" type="text" name="Date" placeholder="Date" style={{color:'blue'}} />
-              <input className="in34" type="tel" name="phone" placeholder="Reason" />
-              <button type="submit">Book Appointment</button>
+              <input className="in33" onChange={handleDateChange} id="date" type="text" value={date} name="Date" placeholder="Date" />
+              <input className="in34" onChange={hadleReasonChange} id="reason" type="text" value={reason} name="phone" placeholder="Reason" />
+              <button onClick={handleSubmit} type="submit">Book Appointment</button>
               {/* <h3>Book Now</h3> */}
             </form>
           </div>

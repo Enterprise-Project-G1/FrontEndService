@@ -10,9 +10,7 @@ import { useGetPatientQuery } from '../slices/usersApiSlice';
 
 const Profile = () => {
   const { data: patients, error, isLoading } = useGetPatientQuery();
-  console.log(patients);
   const { userInfo } = useSelector(state => state.auth);
-  console.log(userInfo);
   const [patientData, setPatientData] = useState(null);
 
   useEffect(() => {

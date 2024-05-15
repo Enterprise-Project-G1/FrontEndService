@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import "../css/signup.css";
 import { toast } from 'react-toastify';
 // import logo from "../img/logo.png";
-import { useRegisterMutation } from '../slices/usersApiSlice';
+import { useRegisterMutation, useCheckEmailMutation, useCheckNumberMutation } from '../slices/usersApiSlice';
 // import logo from "../image/logo.png";
 // import logo from "../img/logo.png";
 import logo from "../img/fin LOGO.png";
@@ -11,6 +11,8 @@ import logo from "../img/fin LOGO.png";
 const Signup = () => {
   const navigate = useNavigate();
   const [register] = useRegisterMutation();
+  const [checkEmail] = useCheckEmailMutation();
+  const [checkNumber] = useCheckNumberMutation();
   const [name, setName] = useState('');
   const [gender, setGender] = useState('');
   const [email, setEmail] = useState('');
@@ -56,9 +58,19 @@ const Signup = () => {
     }
 
     try {
-      await register({ name, gender, email, phoneNumber, dateOfBirth, password}).unwrap();
-      toast.success("User Registration Successful!")
-      navigate("/login")
+      const res = await checkEmail({email}).unwrap();
+      const resn = await checkNumber({phoneNumber}).unwrap();
+      if(res === false && resn === false){
+        try{
+          await register({ name, gender, email, phoneNumber, dateOfBirth, password}).unwrap();
+          toast.success("User Registration Successful!")
+          navigate("/login")
+        }catch (err) {
+          toast.error(err?.data?.message || err.error)
+        }
+      }else{
+        toast.error("Email or Contact Number already in use!")
+      }
     } catch (err) {
       toast.error(err?.data?.message || err.error)
     }

@@ -22,9 +22,13 @@ const Loginuser = () => {
     e.preventDefault()
     try{
         const res = await login({email, password}).unwrap();
-        dispatch(setCredentials({...res,}));
-        toast.success("Login Successful!")
-        navigate("/")
+        if(res.user.authorities.length > 0){
+          toast.error("You cannot login as a patient!")
+        }else{
+          dispatch(setCredentials({...res,}));
+          toast.success("Login Successful!")
+          navigate("/")
+        } 
     }catch(err){
         toast.error(err?.data?.message || err.error)
     }
