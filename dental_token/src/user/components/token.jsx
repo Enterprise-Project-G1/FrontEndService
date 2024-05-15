@@ -38,8 +38,8 @@ const Token = () => {
               height: "650px",
               float: "right",
               // marginLeft: '10%',
-              marginRight: "6%",
-              marginTop: "-29.7%",
+              marginRight: "4%",
+              marginTop: "-31%",
             }}
           />
         </div>

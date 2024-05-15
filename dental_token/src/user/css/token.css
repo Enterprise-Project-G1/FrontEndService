@@ -1,6 +1,6 @@
 .hero-banner123 {
     background-color: #57C5CA;
-    height: 70vh;
+    height: 700px;
     /* max-height: max-content; */
 }
 
@@ -19,7 +19,7 @@
     text-align: start;
     width: 30%;
     font-family: Roboto;
-    margin-top: 5%;
+    margin-top: 12%;
 }
 
 .hero-description123 {
