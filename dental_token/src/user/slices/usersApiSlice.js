@@ -38,9 +38,15 @@ export const usersApliSlice = apiSlice.injectEndpoints({
             }),
             providesTags: ['Feedbacks']
         }),
+        getPatient: builder.query({
+            query: () => ({
+                url: PATIENT_URL + '/all'
+            }), 
+            providesTags: ['Patients']
+        }),
     })
 })
 
 
 export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useFeedbackMutation,
-    useGetFeedbackQuery } = usersApliSlice;
+    useGetFeedbackQuery, useGetPatientQuery } = usersApliSlice;

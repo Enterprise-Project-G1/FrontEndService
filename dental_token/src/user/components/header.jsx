@@ -18,7 +18,7 @@ const Header = () => {
         </div>
         <div className="mail-info">
           <img src={mail} alt="Logo" className="mail-icon" />
-          <p className="contact-text">bajay@gmail.com</p>
+          <p className="contact-text">tabadental@gmail.com</p>
         </div>
       </div>
     </header>

@@ -20,7 +20,6 @@ const Loginuser = () => {
 
   const handleLogin = async(e) => {
     e.preventDefault()
-    // console.log('submit')
     try{
         const res = await login({email, password}).unwrap();
         dispatch(setCredentials({...res,}));
@@ -37,14 +36,14 @@ const Loginuser = () => {
         <h1>Login to Your Account</h1>
         <input
         className="in"
-          // type="email"
+          type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
         className="in"
-          // type="password"
+          type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
