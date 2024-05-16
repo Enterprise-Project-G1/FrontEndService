@@ -1,17 +1,32 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import img from '../img/logo.png';
+import { Link, useNavigate } from 'react-router-dom';
+import img from '../img/fin LOGO.png';
 import './../css/nav.css';
-
-
+import { useDispatch } from 'react-redux';
+import { useLogoutMutation } from '../../slices/usersApiSlice';
+import { logout } from '../../slices/authSlice';
 
 const Nav = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const [logoutApiCall] = useLogoutMutation()
+
+    const logoutHandler = async () => {
+        try {
+            await logoutApiCall().unwrap();
+            dispatch(logout());
+            navigate('/');
+        } catch (error) {
+            console.log(error);
+        }
+    }
     return (
         <nav style={{background:"white",margin:0}}>
            <ul>
             <div className='container'>
                 <div className='main'>
-                        <img src={img} alt="image" />
+                        <img src={img} alt="Logo" />
 
                        <div className='inner'>
                             <div className='each-nav' >
@@ -19,7 +34,7 @@ const Nav = () => {
                                     <i class="fa-solid fa-house-circle-check"></i>                               
                                 </div>
                                 <li>
-                                    <Link style={{ color: 'Black',textDecoration:'none'}} exact to="/Dashboard">Dashboard</Link>
+                                    <Link style={{ color: 'Black',textDecoration:'none'}} exact to="/dashboard">Dashboard</Link>
                                 </li>
                             </div>
                             <div className='each-nav'>
@@ -41,7 +56,7 @@ const Nav = () => {
                      </div>
 
                     <div className='logout'>
-                        <button style={{ background:"#373C3E",height:"47px",width:"141px",borderRadius:"10px"}}>
+                        <button onClick={logoutHandler} style={{ background:"#373C3E",height:"47px",width:"141px",borderRadius:"10px"}}>
                             <Link style={{ color: 'white',textDecoration:'none'}} to="/">Logout</Link>
                         </button>
                     </div>

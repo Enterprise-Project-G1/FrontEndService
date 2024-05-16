@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from 'react-redux'; // Import useSelector ho
 import { IoNotificationsSharp } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import '../css/navigation.css';
-import { useLogoutMutation } from '../slices/usersApiSlice';
-import { logout } from '../slices/authSlice';
+import { useLogoutMutation } from '../../slices/usersApiSlice';
+import { logout } from '../../slices/authSlice';
 
 const Nav = () => {
   // useSelector hook to access Redux store state

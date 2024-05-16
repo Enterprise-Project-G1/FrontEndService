@@ -7,7 +7,7 @@ import Active from "./doctor/ActiveAppointment/Active/ActiveApp";
 // import Maindash from './Doctor/components/MainDash/Maindah';
 import Maindash from "./doctor/components/MainDash/Maindah"
 // import Login from './Doctor/components/Login';
-import Logindoctor from "./doctor/components/Login.doctorjsx";
+import Logindoctor from "./doctor/components/Login.jsx";
 
 
 function DoctorRouter() {

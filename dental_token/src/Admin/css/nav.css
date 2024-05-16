@@ -25,6 +25,12 @@ li{
     align-items: center;
     width: 40%;
 }
+
+.main img{
+    width: 70px;
+    height: 70px;
+}
+
 .inner{
     /* background-color: blueviolet; */
     column-gap: 100px;

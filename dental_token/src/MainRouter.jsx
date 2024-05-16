@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom'
-import Login from './Admin/pages/Login';
+import Login from './doctor/components/Login';
 import Dashboard from './Admin/pages/Dashboard';
 import Users from './Admin/pages/Users';
 import Feedback from './Admin/pages/Feedback';

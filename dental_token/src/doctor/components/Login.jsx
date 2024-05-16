@@ -1,21 +1,29 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import "../css/Login.css";
 import "../components/Login.css"
-// import logo from "../logo.png";
 import logo from "../../logo.png";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { setCredentials } from "../../slices/authSlice";
+import { useLoginMutation } from "../../slices/usersApiSlice";
 
 const Logindoctor = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [login] = useLoginMutation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    // Handle login logic here
-    console.log("Email:", email);
-    console.log("Password:", password);
-    // If login is successful, navigate to the dashboard
-    navigate("/dashboard");
+  const handleLogin = async(e) => {
+    e.preventDefault()
+    try {
+      const res = await login({email, password}).unwrap();
+      dispatch(setCredentials({...res,}));
+      toast.success("Login Successful!")
+      navigate('/dashboard')
+    } catch (err) {
+      toast.error(err?.data?.message || err.error)
+    }
   };
 
   return (

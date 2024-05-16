@@ -5,7 +5,7 @@ import { Icon } from "@iconify/react";
 import Header from "./header";
 import Footer from "./footer";
 import Nav from "./navigation";
-import { usePostAppointmentMutation, useGetPatientQuery } from "../slices/usersApiSlice";
+import { usePostAppointmentMutation, useGetPatientQuery } from "../../slices/usersApiSlice";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";

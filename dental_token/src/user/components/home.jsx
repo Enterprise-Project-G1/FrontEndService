@@ -7,7 +7,7 @@ import FeedbackImg from "../../user/img/feedback.png";
 import Header from './header';
 import Footer from './footer';
 import Nav from './navigation';
-import { useFeedbackMutation, useGetFeedbackQuery } from '../slices/usersApiSlice';
+import { useFeedbackMutation, useGetFeedbackQuery } from '../../slices/usersApiSlice';
 import { toast } from 'react-toastify';
 
 const Home = () => {

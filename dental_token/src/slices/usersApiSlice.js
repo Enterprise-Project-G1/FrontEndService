@@ -1,5 +1,5 @@
-import { FEEDBACK_URL, USERS_URL } from "../../constants";
-import { PATIENT_URL, APPOINTMENT_URL } from "../../constants";
+import { FEEDBACK_URL, USERS_URL } from "../constants";
+import { PATIENT_URL, APPOINTMENT_URL, USER_URL } from "../constants";
 import { apiSlice } from "./apiSlice";
 
 
@@ -65,10 +65,22 @@ export const usersApliSlice = apiSlice.injectEndpoints({
                 body: data
             }),
         }),
+        getAppointment: builder.query({
+            query: () => ({
+                url: APPOINTMENT_URL
+            }), 
+            providesTags: ['Appointments']
+        }),
+        getUsers: builder.query({
+            query: () => ({
+                url: USER_URL
+            }),
+            providesTags: ['Users']
+        }),
     })
 })
 
 
 export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useFeedbackMutation,
     useGetFeedbackQuery, useGetPatientQuery, useCheckEmailMutation, useCheckNumberMutation,
-usePostAppointmentMutation } = usersApliSlice;
+usePostAppointmentMutation, useGetAppointmentQuery, useGetUsersQuery } = usersApliSlice;

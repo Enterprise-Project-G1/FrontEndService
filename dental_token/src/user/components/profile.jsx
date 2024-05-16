@@ -6,7 +6,7 @@ import Header from './header';
 import Nav from './navigation';
 import Footer from './footer';
 import { toast } from 'react-toastify';
-import { useGetPatientQuery } from '../slices/usersApiSlice';
+import { useGetPatientQuery } from '../../slices/usersApiSlice';
 
 const Profile = () => {
   const { data: patients, error, isLoading } = useGetPatientQuery();

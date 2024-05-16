@@ -4,8 +4,8 @@ import "../css/login.css";
 import { useDispatch} from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify';
-import { setCredentials } from "../slices/authSlice";
-import { useLoginMutation } from '../slices/usersApiSlice'
+import { setCredentials } from "../../slices/authSlice";
+import { useLoginMutation } from '../../slices/usersApiSlice'
 // import logo from "../img/logo.png"
 import logo from "../img/fin LOGO.png";
 

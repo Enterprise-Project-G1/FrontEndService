@@ -4,8 +4,8 @@ import './App.css';
 // import Maindash from './doctor/components/MainDash/Maindah';
 // import Login from './doctor/components/Login';
 // import Mrouters from "./"
-import Mrouters from "./Mrouters";
-// import MainRouter from './MainRouter';
+// import Mrouters from "./Mrouters";
+import MainRouter from './MainRouter';
 // import DoctorRouter from './DoctorRouter';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,7 +14,8 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return(
     <>
-    <Mrouters/>
+    <MainRouter/>
+    {/* <Mrouters/> */}
     <ToastContainer/>
    </>
   

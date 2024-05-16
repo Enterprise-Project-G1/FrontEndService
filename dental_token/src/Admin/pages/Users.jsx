@@ -1,17 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Nav from "./Navbar";
 import './../css/style.css';
 import img from '../img/image.png';
-
-
-const data = [
-    { UserName: "Tashi Wangyel", Email: "tashi@gmail.com", Action: "Delete" },
-    { UserName: "Tashi Wangyel", Email: "tashi@gmail.com", Action: "Delete" },
-    { UserName: "Tashi Wangyel", Email: "tashi@gmail.com", Action: "Delete" },
-    { UserName: "Tashi Wangyel", Email: "tashi@gmail.com", Action: "Delete" },
-    { UserName: "Tashi Wangyel", Email: "tashi@gmail.com", Action: "Delete" },
-    { UserName: "Tashi Wangyel", Email: "tashi@gmail.com", Action: "Delete" },
-]
+import { useGetAppointmentQuery, useGetFeedbackQuery, useGetPatientQuery, useGetUsersQuery } from "../../slices/usersApiSlice";
+import { toast } from "react-toastify";
 
 const Users = () => {
     const [showOverlay, setShowOverlay] = useState(false);
@@ -19,7 +11,22 @@ const Users = () => {
     const [selectedId, setSelectedId] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const [showSuccessMessage2, setShowSuccessMessage2] = useState(false);
+    const { data: feedbacks, error, isLoading } = useGetFeedbackQuery();
+    const {data: patients, pError, isPLoading} = useGetPatientQuery();
+    const {data: appointments, aError, isALoading} = useGetAppointmentQuery();
+    const {data: users, useError, isUserLoading} = useGetUsersQuery();
 
+    useEffect(() => {
+        if (error) {
+            toast.error("Failed to fetch testimonials");
+        }else if(pError){
+            toast.error("Failed to fetch patients");
+        }else if(aError) {
+            toast.error("Failed to fetch appointments");
+        }else if(useError){
+            toast.error("Failed to fetch appointments");
+        }
+    }, [feedbacks, patients, appointments, users, error, pError, aError, useError]);
 
     const toggleOverlay = () => {
         setIsOpen(!isOpen);
@@ -49,13 +56,14 @@ const Users = () => {
     };
 
     const handleConfirmDelete = () => {
-        const newData = data.filter(item => item.id !== selectedId);
-        // Update your state or perform other actions as needed
-        setShowOverlay(false);
-        setShowSuccessMessage(true);
-        setTimeout(() => {
-            setShowSuccessMessage(false);
-        }, 2000); // Hide success message after 2 seconds
+        // const newData = data.filter(item => item.id !== selectedId);
+        // // Update your state or perform other actions as needed
+        // setShowOverlay(false);
+        // setShowSuccessMessage(true);
+        // setTimeout(() => {
+        //     setShowSuccessMessage(false);
+        // }, 2000); // Hide success message after 2 seconds
+        toast.success("Clicked!!")
     };
 
     const handleCancelDelete = () => {
@@ -79,23 +87,18 @@ const Users = () => {
                                 <i onClick={toggleOverlay} class="fa-solid fa-circle-plus"></i>
                             </div>
                         </div>
-                        <div className="each">
-                            <img className="im" src={img} alt="image"></img>
-                            <p>Dr. Tashi Wangyel</p>
-                        </div>
-                        <div className="each">
-                            <img className="im" src={img} alt="image"></img>
-                            <p>Dr. Tashi Wangyel</p>
-                        </div>
-                        <div className="each">
-                            <img className="im" src={img} alt="image"></img>
-                            <p>Dr. Tashi Wangyel</p>
-                        </div>
-                        <div className="each">
-                            <img className="im" src={img} alt="image"></img>
-                            <p>Dr. Tashi Wangyel</p>
-                        </div>
-
+                        {users && users.map((val) => {
+                            if (val.roles[0].name === 'Doctor') {
+                                return (
+                                    <div className="each">
+                                        <img className="im" src={img} alt="images"></img>
+                                        <p>Dr. {val.name}</p>
+                                    </div>
+                                )
+                            }
+                            return null;
+                        })
+                        }
                     </div>
                 </div>
 
@@ -105,47 +108,57 @@ const Users = () => {
                             <div className="icon-container"> {/* Container for the icon */}
                                 <i class="fa-solid fa-circle-user"></i>
                             </div>
-                            <div>
+                            {isPLoading && <p>Loading Patients</p>}
+                            {patients && (
+                                <div>
                                 <p>Total no. of Users</p>
-                                <p>34567</p>
+                                <p>{patients.length}</p>
                             </div>
+                            )} 
                         </div>
                         <div className="total">
                             <div className="icon-container"> {/* Container for the icon */}
                                 <i class="fa-solid fa-list-check"></i>
                             </div>
-                            <div>
+                            {isALoading && <p>Loading Appointments</p>}
+                            {appointments && (
+                                <div>
                                 <p>Today's appointments</p>
-                                <p>34567</p>
+                                <p>{appointments.length}</p>
                             </div>
+                            )}
                         </div>
                         <div className="total">
                             <div className="icon-container"> {/* Container for the icon */}
                                 <i class="fa-regular fa-message"></i>
                             </div>
-                            <div>
-                                <p>Total no. of Feedbacks</p>
-                                <p>34567</p>
-                            </div>
+                            {isLoading && <p>Loading Feedbacks</p>}
+                            {feedbacks && feedbacks.length > 0 && (
+                                <div>
+                                    <p>Total no. of Feedbacks</p>
+                                    <p>{feedbacks.length}</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                     <h1 style={{ color: "white" }}>Users</h1>
 
 
                     <div className="App">
-                        <table>
+                        {patients && (
+                            <table>
                             <tr>
                                 <th>SI No</th>
                                 <th> UserName</th>
                                 <th>Email</th>
                                 <th>Action</th>
                             </tr>
-                            {data.map((val, index) => {
+                            {patients.map((val, index) => {
                                 return (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
-                                        <td>{val.UserName}</td>
-                                        <td>{val.Email}</td>
+                                        <td>{val.name}</td>
+                                        <td>{val.email}</td>
                                         <td>
                                             <button className="btn" onClick={() => handleDelete(val.id)}>Disable</button>
                                         </td>
@@ -153,6 +166,8 @@ const Users = () => {
                                 )
                             })}
                         </table>
+                        )}
+                        
 
 
                     </div>
