@@ -2,20 +2,27 @@ import React, { useState, useEffect } from "react";
 import Nav from "./Navbar";
 import './../css/style.css';
 import img from './../img/image.png';
-import { useGetFeedbackQuery, useGetAppointmentQuery, useGetPatientQuery, useGetUsersQuery } from "../../slices/usersApiSlice";
+import { useGetFeedbackQuery, useGetAppointmentQuery, useGetPatientQuery, useGetUsersQuery, 
+    useDeleteFeedbackMutation, usePostUsersMutation } from "../../slices/usersApiSlice";
 import { toast } from "react-toastify";
 
 const Feedback = () => {
     const [showOverlay, setShowOverlay] = useState(false);
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
-    const [showSuccessMessage2, setShowSuccessMessage2] = useState(false);
     const { data: feedbacks, error, isLoading } = useGetFeedbackQuery();
     const {data: patients, pError, isPLoading} = useGetPatientQuery();
     const {data: appointments, aError, isALoading} = useGetAppointmentQuery();
     const { data: users, userError, isUserLoading } = useGetUsersQuery();
+    const [deleteFeedback] = useDeleteFeedbackMutation();
 
+    const [postUser] = usePostUsersMutation();
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [contact, setContact] = useState(null);
+    const [gender, setGender] = useState('');
+    const [password, setPassword] = useState('');
+    const [roles, setRoles] = useState([{"id":2, "name":"Doctor"}]);
 
     useEffect(() => {
         if (error) {
@@ -29,20 +36,44 @@ const Feedback = () => {
         }
     }, [feedbacks, patients, appointments, users, error, pError, aError, userError]);
 
+    const handleNameChange = (e) => {
+        setName(e.target.value);
+    }
+
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+    }
+
+    const handleContactChange = (e) => {
+        setContact(e.target.value);
+    }
+
+    const handleGenderChange = (e) => {
+        setGender(e.target.value);
+    }
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+    }
+
     const toggleOverlay = () => {
         setIsOpen(!isOpen);
     };
-    const handleConfirmAdding = () => {
-        // Update your state or perform other actions as needed
-        setIsOpen(false);
-        setShowSuccessMessage2(true);
-        setTimeout(() => {
-            setShowSuccessMessage2(false);
-        }, 2000);
-    };
-    const handleSubmit = (event) => {
-        event.preventDefault();
 
+    const handleSubmit = async(event) => {
+        event.preventDefault();
+        event.preventDefault();
+        if(name === "" || email === "" || contact === "" || gender === "" || password === "" || roles === ""){
+            toast.error("All fields are required!")
+        }else{
+            try{
+                await postUser({name, email, contact, gender, password, roles}).unwrap();
+                toast.success("User registration successful!")
+                window.location.reload();
+            }catch(err){
+                toast.error(err?.data?.message || err.error)
+            }
+        }
     };
 
     const handleCancelAdding = () => {
@@ -54,15 +85,16 @@ const Feedback = () => {
         setShowOverlay(true);
     };
 
-    const handleConfirmDelete = () => {
-        // const newData = feedbacks.filter(item => item.id !== selectedId);
-        // // Update your state or perform other actions as needed
-        // setShowOverlay(false);
-        // setShowSuccessMessage(true);
-        // setTimeout(() => {
-        //     setShowSuccessMessage(false);
-        // }, 2000); // Hide success message after 2 seconds
-        toast.success("Clicked delete!!")
+    const handleConfirmDelete = async(e) => {
+        e.preventDefault()
+        try{
+            await deleteFeedback(selectedId);
+            toast.success("Feedback deleted successfully!")
+            window.location.reload();
+        }catch(err){
+            toast.error(err?.data?.message || err.error)
+        }
+        
     };
 
     const handleCancelDelete = () => {
@@ -177,12 +209,6 @@ const Feedback = () => {
                     </div>
                 </div>
             )}
-            {showSuccessMessage && (
-                <div className="success-message">
-                    <p>You have successfully deleted the feedback!</p>
-                </div>
-            )}
-
             {/* Add Doctor */}
             {isOpen && (
                 <div className="overlay">
@@ -191,14 +217,14 @@ const Feedback = () => {
                         <div style={{ paddingBottom: "10px" }}>
                             <i style={{ fontSize: "70px" }} class="fa-solid fa-user-plus"></i>
                         </div>
-                        <form className="form" onSubmit={handleSubmit}>
+                        <form className="form">
                             <input
                                 type="text"
                                 id="name"
                                 name="name"
-                                // value="Name"
+                                value={name}
                                 placeholder="Name"
-                                // onChange={handleChange}
+                                onChange={handleNameChange}
                                 required
                             />
 
@@ -206,53 +232,47 @@ const Feedback = () => {
                                 type="email"
                                 id="email"
                                 name="email"
-                                // value="Email"
+                                value={email}
                                 placeholder="Email"
-                                // onChange={handleChange}
+                                onChange={handleEmailChange}
                                 required
                             />
                             <input
                                 type="password"
                                 id="password"
                                 name="password"
-                                // value="Password"
+                                value={password}
                                 placeholder="Password"
-                                // onChange={handleChange}
+                                onChange={handlePasswordChange}
                                 required
                             />
                             <input
                                 type="contact"
                                 id="contact"
                                 name="contact"
-                                // value="Contact"
+                                value={contact}
                                 placeholder="Contact"
-                                // onChange={handleChange}
+                                onChange={handleContactChange}
                                 required
                             />
                             <input
                                 type="gender"
                                 id="gender"
                                 name="gender"
-                                // value="Gender"
+                                value={gender}
                                 placeholder="Gender"
-                                // onChange={handleChange}
+                                onChange={handleGenderChange}
                                 required
                             />
 
-
                             <div>
-                                <button style={{ background: "#373C3E" }} className="btn" onClick={handleConfirmAdding}>Submit</button>
+                                <button style={{ background: "#373C3E" }} className="btn" onClick={handleSubmit}>Submit</button>
                                 <button className="btn" onClick={handleCancelAdding}>Cancel</button>
                             </div>
                         </form>
 
 
                     </div>
-                </div>
-            )}
-            {showSuccessMessage2 && (
-                <div className="success-message">
-                    <p>You have successfully Added the user!</p>
                 </div>
             )}
         </div>

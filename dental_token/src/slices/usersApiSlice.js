@@ -27,32 +27,32 @@ export const usersApliSlice = apiSlice.injectEndpoints({
         }),
         feedback: builder.mutation({
             query: (data) => ({
-                url: FEEDBACK_URL ,
+                url: FEEDBACK_URL,
                 method: 'POST',
                 body: data
             }),
         }),
         getFeedback: builder.query({
             query: () => ({
-                url: FEEDBACK_URL 
+                url: FEEDBACK_URL
             }),
             providesTags: ['Feedbacks']
         }),
         getPatient: builder.query({
             query: () => ({
                 url: PATIENT_URL + '/all'
-            }), 
+            }),
             providesTags: ['Patients']
         }),
         checkEmail: builder.mutation({
-            query: (data) => ( {
+            query: (data) => ({
                 url: PATIENT_URL + '/isEmailUnique',
                 method: 'POST',
                 body: data
             }),
         }),
         checkNumber: builder.mutation({
-            query: (data) => ( {
+            query: (data) => ({
                 url: PATIENT_URL + '/isNumberUnique',
                 method: 'POST',
                 body: data
@@ -68,7 +68,7 @@ export const usersApliSlice = apiSlice.injectEndpoints({
         getAppointment: builder.query({
             query: () => ({
                 url: APPOINTMENT_URL
-            }), 
+            }),
             providesTags: ['Appointments']
         }),
         getUsers: builder.query({
@@ -77,10 +77,30 @@ export const usersApliSlice = apiSlice.injectEndpoints({
             }),
             providesTags: ['Users']
         }),
+        postUsers: builder.mutation({
+            query: (data) => ({
+                url: USER_URL,
+                method: 'POST',
+                body: data
+            }),
+        }),
+        deleteFeedback: builder.mutation({
+            query: (id) => ({
+                url: FEEDBACK_URL + `/${id}`,
+                method: 'DELETE'
+            }),
+        }),
+        deleteAppointment: builder.mutation({
+            query: (id) => ({
+                url: APPOINTMENT_URL + `/${id}`,
+                method: 'DELETE'
+            }),
+        }),
     })
 })
 
 
 export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useFeedbackMutation,
     useGetFeedbackQuery, useGetPatientQuery, useCheckEmailMutation, useCheckNumberMutation,
-usePostAppointmentMutation, useGetAppointmentQuery, useGetUsersQuery } = usersApliSlice;
+    usePostAppointmentMutation, useGetAppointmentQuery, useGetUsersQuery, usePostUsersMutation,
+    useDeleteFeedbackMutation, useDeleteAppointmentMutation } = usersApliSlice;

@@ -10,11 +10,10 @@ const MainRouter = () => {
     <>
       <Router>
         <Routes>
-            <Route path='/' element={<Login/>}/>
-            <Route path='/dashboard' element={<Dashboard/>}/>
-            <Route path='/users' element={<Users/>}/>
-            <Route path='/feedbacks' element={<Feedback/>}/>
-            {/* <Route path='*' element={<h1>Note Found</h1>}/> */}
+            <Route path='/admin' element={<Login/>}/>
+            <Route path='/admin/dashboard' element={<Dashboard/>}/>
+            <Route path='/admin/users' element={<Users/>}/>
+            <Route path='/admin/feedbacks' element={<Feedback/>}/>
         </Routes>
       </Router>
      </>

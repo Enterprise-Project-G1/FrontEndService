@@ -16,7 +16,7 @@ const Nav = () => {
         try {
             await logoutApiCall().unwrap();
             dispatch(logout());
-            navigate('/');
+            navigate('/admin');
         } catch (error) {
             console.log(error);
         }
@@ -34,21 +34,21 @@ const Nav = () => {
                                     <i class="fa-solid fa-house-circle-check"></i>                               
                                 </div>
                                 <li>
-                                    <Link style={{ color: 'Black',textDecoration:'none'}} exact to="/dashboard">Dashboard</Link>
+                                    <Link style={{ color: 'Black',textDecoration:'none'}} exact to="/admin/dashboard">Dashboard</Link>
                                 </li>
                             </div>
                             <div className='each-nav'>
                                 <div style={{fontSize:"30px"}}>
                                     <i class="fa-solid fa-user-check"></i>                                </div>
                                 <li>
-                                    <Link style={{ color: 'Black',textDecoration:'none'}} to="/users">Users</Link>
+                                    <Link style={{ color: 'Black',textDecoration:'none'}} to="/admin/users">Users</Link>
                                 </li>
                             </div>
                             <div className='each-nav'>
                                 <div style={{fontSize:"30px"}}>
                                     <i class="fa-regular fa-comment-dots"></i>                                </div>
                                 <li>
-                                    <Link style={{ color: 'Black',textDecoration:'none'}} to="/feedbacks">Feedback</Link>
+                                    <Link style={{ color: 'Black',textDecoration:'none'}} to="/admin/feedbacks">Feedback</Link>
                                 </li>
                             </div>
                                 
@@ -57,7 +57,7 @@ const Nav = () => {
 
                     <div className='logout'>
                         <button onClick={logoutHandler} style={{ background:"#373C3E",height:"47px",width:"141px",borderRadius:"10px"}}>
-                            <Link style={{ color: 'white',textDecoration:'none'}} to="/">Logout</Link>
+                            <Link style={{ color: 'white',textDecoration:'none'}}>Logout</Link>
                         </button>
                     </div>
 

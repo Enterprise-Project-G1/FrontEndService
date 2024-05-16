@@ -20,7 +20,7 @@ const Logindoctor = () => {
       const res = await login({email, password}).unwrap();
       dispatch(setCredentials({...res,}));
       toast.success("Login Successful!")
-      navigate('/dashboard')
+      navigate('/admin/dashboard')
     } catch (err) {
       toast.error(err?.data?.message || err.error)
     }

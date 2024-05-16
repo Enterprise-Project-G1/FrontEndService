@@ -2,15 +2,13 @@ import React, { useState, useEffect } from "react";
 import img from '../img/image.png';
 import Nav from "./Navbar";
 import './../css/style.css';
-import { useGetFeedbackQuery, useGetAppointmentQuery, useGetPatientQuery, useGetUsersQuery } from "../../slices/usersApiSlice";
+import { useGetFeedbackQuery, useGetAppointmentQuery, useGetPatientQuery, 
+    useGetUsersQuery, usePostUsersMutation, useDeleteAppointmentMutation } from "../../slices/usersApiSlice";
 import { toast } from "react-toastify";
 
 const Dashboard = () => {
     const [showOverlay, setShowOverlay] = useState(false);
     const [showOverlay1, setShowOverlay1] = useState(false);
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-    const [showSuccessMessage1, setShowSuccessMessage1] = useState(false);
-    const [showSuccessMessage2, setShowSuccessMessage2] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
     const [number, setNumber] = useState(0)
     const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +16,16 @@ const Dashboard = () => {
     const { data: patients, pError, isPLoading } = useGetPatientQuery();
     const { data: appointments, aError, isALoading } = useGetAppointmentQuery();
     const { data: users, userError, isUserLoading } = useGetUsersQuery();
+    const [deleteAppointment] = useDeleteAppointmentMutation();
+
+    const [postUser] = usePostUsersMutation();
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [contact, setContact] = useState(null);
+    const [gender, setGender] = useState('');
+    const [password, setPassword] = useState('');
+    const [roles, setRoles] = useState([{"id":2, "name":"Doctor"}]);
+
 
     useEffect(() => {
         if (error) {
@@ -31,21 +39,43 @@ const Dashboard = () => {
         }
     }, [feedbacks, patients, appointments, users, error, pError, aError, userError]);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleNameChange = (e) => {
+        setName(e.target.value);
+    }
 
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+    }
+
+    const handleContactChange = (e) => {
+        setContact(e.target.value);
+    }
+
+    const handleGenderChange = (e) => {
+        setGender(e.target.value);
+    }
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+    }
+
+    const handleSubmit = async(event) => {
+        event.preventDefault();
+        if(name === "" || email === "" || contact === "" || gender === "" || password === "" || roles === ""){
+            toast.error("All fields are required!")
+        }else{
+            try{
+                await postUser({name, email, contact, gender, password, roles}).unwrap();
+                toast.success("User registration successful!")
+                window.location.reload();
+            }catch(err){
+                toast.error(err?.data?.message || err.error)
+            }
+        }
     };
 
     const toggleOverlay = () => {
         setIsOpen(!isOpen);
-    };
-    const handleConfirmAdding = () => {
-
-        setIsOpen(false);
-        setShowSuccessMessage2(true);
-        setTimeout(() => {
-            setShowSuccessMessage2(false);
-        }, 2000);
     };
 
     const handleCancelAdding = () => {
@@ -57,13 +87,8 @@ const Dashboard = () => {
         setShowOverlay1(true);
     };
     const handleConfirmSet = () => {
-        // const newData = data.filter(item => item.id !== selectedId);
-        // Update your state or perform other actions as needed
+        
         setShowOverlay1(false);
-        setShowSuccessMessage1(true);
-        setTimeout(() => {
-            setShowSuccessMessage1(false);
-        }, 2000); // Hide success message after 2 seconds
     };
 
     const handleCancelSet = () => {
@@ -75,15 +100,15 @@ const Dashboard = () => {
         setShowOverlay(true);
     };
 
-    const handleConfirmDelete = () => {
-        // const newData = data.filter(item => item.id !== selectedId);
-        // // Update your state or perform other actions as needed
-        // setShowOverlay(false);
-        // setShowSuccessMessage(true);
-        // setTimeout(() => {
-        //     setShowSuccessMessage(false);
-        // }, 2000); // Hide success message after 2 seconds
-        toast.success("Clicked!!")
+    const handleConfirmDelete = async(e) => {
+        e.preventDefault()
+        try{
+            await deleteAppointment(selectedId);
+            toast.success("Appointment deleted successfully!")
+            window.location.reload()
+        }catch(err) {
+            toast.error(err?.data?.message || err.error)
+        }
     };
 
     const handleCancelDelete = () => {
@@ -217,11 +242,6 @@ const Dashboard = () => {
                     </div>
                 </div>
             )}
-            {showSuccessMessage && (
-                <div className="success-message">
-                    <p>You have successfully deleted the user!</p>
-                </div>
-            )}
 
             {/* Token */}
             {showOverlay1 && (
@@ -240,11 +260,6 @@ const Dashboard = () => {
                     </div>
                 </div>
             )}
-            {showSuccessMessage1 && (
-                <div className="success-message">
-                    <p>You have successfully set the token number!</p>
-                </div>
-            )}
 
 
             {/* Add Doctor */}
@@ -255,14 +270,14 @@ const Dashboard = () => {
                         <div style={{ paddingBottom: "10px" }}>
                             <i style={{ fontSize: "70px" }} class="fa-solid fa-user-plus"></i>
                         </div>
-                        <form className="form" onSubmit={handleSubmit}>
+                        <form className="form">
                             <input
                                 type="text"
                                 id="name"
                                 name="name"
-                                // value="Name"
+                                value={name}
                                 placeholder="Name"
-                                onChange={handleChange}
+                                onChange={handleNameChange}
                                 required
                             />
 
@@ -270,53 +285,47 @@ const Dashboard = () => {
                                 type="email"
                                 id="email"
                                 name="email"
-                                // value="Email"
+                                value={email}
                                 placeholder="Email"
-                                onChange={handleChange}
+                                onChange={handleEmailChange}
                                 required
                             />
                             <input
                                 type="password"
                                 id="password"
                                 name="password"
-                                // value="Password"
+                                value={password}
                                 placeholder="Password"
-                                onChange={handleChange}
+                                onChange={handlePasswordChange}
                                 required
                             />
                             <input
                                 type="contact"
                                 id="contact"
                                 name="contact"
-                                // value="Contact"
+                                value={contact}
                                 placeholder="Contact"
-                                onChange={handleChange}
+                                onChange={handleContactChange}
                                 required
                             />
                             <input
                                 type="gender"
                                 id="gender"
                                 name="gender"
-                                // value="Gender"
+                                value={gender}
                                 placeholder="Gender"
-                                onChange={handleChange}
+                                onChange={handleGenderChange}
                                 required
                             />
 
-
                             <div>
-                                <button style={{ background: "#373C3E" }} className="btn" onClick={handleConfirmAdding}>Submit</button>
+                                <button style={{ background: "#373C3E" }} className="btn" onClick={handleSubmit}>Submit</button>
                                 <button className="btn" onClick={handleCancelAdding}>Cancel</button>
                             </div>
                         </form>
 
 
                     </div>
-                </div>
-            )}
-            {showSuccessMessage2 && (
-                <div className="success-message">
-                    <p>You have successfully Added the user!</p>
                 </div>
             )}
 
