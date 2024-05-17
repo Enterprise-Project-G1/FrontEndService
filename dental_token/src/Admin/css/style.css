@@ -11,6 +11,10 @@
     padding-top: 20px;
     padding-left: 60px;
 }
+
+.p1 {
+    margin-left: -18%;
+}
 .im{
     height: 37px;
     width: 37px;
@@ -37,6 +41,7 @@
 .outer2{
     display: flex;
     flex-direction: row;
+    height: 100vh;
 }
 .total{
     display: flex;
@@ -58,7 +63,7 @@
     width: 100%;
 }
 
-.App {
+.App11 {
     width: 100%;
     height: 70vh;
     display: flex;
@@ -66,10 +71,10 @@
     align-items: center; */
 }
  
-table {
-    border: 2px solid white;
+.table123 {
+    /* border: 2px solid white; */
     width: 1200px;
-    height: 200px;
+    height: 5vh;
 }
  
 th {
