@@ -43,10 +43,10 @@ const Token = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!userInfo){
+    if(patientId === null){
       toast.error("Please login to book appointment!");
       navigate('/login');
-    }else if(patientId === "" || date === "" || reason === ""){
+    }else if(date === "" || reason === ""){
       toast.error("All fields are required!")
     }else{
       try{

@@ -15,7 +15,7 @@ const Dashboard = () => {
     const { data: feedbacks, error, isLoading } = useGetFeedbackQuery();
     const { data: patients, pError, isPLoading } = useGetPatientQuery();
     const { data: appointments, aError, isALoading } = useGetAppointmentQuery();
-    const { data: users, userError, isUserLoading } = useGetUsersQuery();
+    const { data: users, userError} = useGetUsersQuery();
     const [deleteAppointment] = useDeleteAppointmentMutation();
 
     const [postUser] = usePostUsersMutation();
@@ -24,7 +24,7 @@ const Dashboard = () => {
     const [contact, setContact] = useState(null);
     const [gender, setGender] = useState('');
     const [password, setPassword] = useState('');
-    const [roles, setRoles] = useState([{"id":2, "name":"Doctor"}]);
+    const [roles] = useState([{"id":2, "name":"Doctor"}]);
 
 
     useEffect(() => {

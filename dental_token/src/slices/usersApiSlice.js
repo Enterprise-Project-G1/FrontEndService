@@ -96,6 +96,12 @@ export const usersApliSlice = apiSlice.injectEndpoints({
                 method: 'DELETE'
             }),
         }),
+        getPatientByEmail: builder.query({
+            query: () => ({
+                url: PATIENT_URL + '/byEmail'
+            }),
+            providesTags: ['Patient']
+        })
     })
 })
 
@@ -103,4 +109,4 @@ export const usersApliSlice = apiSlice.injectEndpoints({
 export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useFeedbackMutation,
     useGetFeedbackQuery, useGetPatientQuery, useCheckEmailMutation, useCheckNumberMutation,
     usePostAppointmentMutation, useGetAppointmentQuery, useGetUsersQuery, usePostUsersMutation,
-    useDeleteFeedbackMutation, useDeleteAppointmentMutation } = usersApliSlice;
+    useDeleteFeedbackMutation, useDeleteAppointmentMutation, useGetPatientByEmailQuery } = usersApliSlice;

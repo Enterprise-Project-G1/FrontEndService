@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Nav from "./Navbar";
 import './../css/style.css';
 import img from '../img/image.png';
-import { useGetAppointmentQuery, useGetFeedbackQuery, useGetPatientQuery, useGetUsersQuery } from "../../slices/usersApiSlice";
+import { useGetAppointmentQuery, useGetFeedbackQuery, useGetPatientQuery, useGetUsersQuery,
+    usePostUsersMutation } from "../../slices/usersApiSlice";
 import { toast } from "react-toastify";
 
 const Users = () => {
@@ -16,6 +17,14 @@ const Users = () => {
     const {data: appointments, aError, isALoading} = useGetAppointmentQuery();
     const {data: users, useError, isUserLoading} = useGetUsersQuery();
 
+    const [postUser] = usePostUsersMutation();
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [contact, setContact] = useState(null);
+    const [gender, setGender] = useState('');
+    const [password, setPassword] = useState('');
+    const [roles] = useState([{"id":2, "name":"Doctor"}]);
+
     useEffect(() => {
         if (error) {
             toast.error("Failed to fetch testimonials");
@@ -28,21 +37,43 @@ const Users = () => {
         }
     }, [feedbacks, patients, appointments, users, error, pError, aError, useError]);
 
+    const handleNameChange = (e) => {
+        setName(e.target.value);
+    }
+
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+    }
+
+    const handleContactChange = (e) => {
+        setContact(e.target.value);
+    }
+
+    const handleGenderChange = (e) => {
+        setGender(e.target.value);
+    }
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
+    }
+
     const toggleOverlay = () => {
         setIsOpen(!isOpen);
     };
-    const handleConfirmAdding = () => {
-        // Update your state or perform other actions as needed
-        setIsOpen(false);
-        setShowSuccessMessage2(true);
-        setTimeout(() => {
-            setShowSuccessMessage2(false);
-        }, 2000); // Hide success message after 2 seconds
-    };
-    const handleSubmit = (event) => {
+    
+    const handleSubmit = async(event) => {
         event.preventDefault();
-        // Here you can perform actions like sending the form data to a server
-        // console.log(formData);
+        if(name === "" || email === "" || contact === "" || gender === "" || password === "" || roles === ""){
+            toast.error("All fields are required!")
+        }else{
+            try{
+                await postUser({name, email, contact, gender, password, roles}).unwrap();
+                toast.success("User registration successful!")
+                window.location.reload();
+            }catch(err){
+                toast.error(err?.data?.message || err.error)
+            }
+        }
     };
 
 
@@ -203,9 +234,9 @@ const Users = () => {
                                 type="text"
                                 id="name"
                                 name="name"
-                                // value="Name"
+                                value={name}
                                 placeholder="Name"
-                                // onChange={handleChange}
+                                onChange={handleNameChange}
                                 required
                             />
 
@@ -213,42 +244,42 @@ const Users = () => {
                                 type="email"
                                 id="email"
                                 name="email"
-                                // value="Email"
+                                value={email}
                                 placeholder="Email"
-                                // onChange={handleChange}
+                                onChange={handleEmailChange}
                                 required
                             />
                                 <input
                                     type="password"
                                     id="password"
                                     name="password"
-                                    // value="Password"
+                                    value={password}
                                     placeholder="Password"
-                                    // onChange={handleChange}
+                                    onChange={handlePasswordChange}
                                     required
                                 />
                                   <input
                                     type="contact"
                                     id="contact"
                                     name="contact"
-                                    // value="Contact"
+                                    value={contact}
                                     placeholder="Contact"
-                                    // onChange={handleChange}
+                                    onChange={handleContactChange}
                                     required
                                 />
                                   <input
                                     type="gender"
                                     id="gender"
                                     name="gender"
-                                    // value="Gender"
+                                    value={gender}
                                     placeholder="Gender"
-                                    // onChange={handleChange}
+                                    onChange={handleGenderChange}
                                     required
                                 />
                 
                           
                             <div>
-                                <button style={{ background: "#373C3E" }} className="btn" onClick={handleConfirmAdding}>Submit</button>
+                                <button style={{ background: "#373C3E" }} className="btn" onClick={handleSubmit}>Submit</button>
                                 <button className="btn" onClick={handleCancelAdding}>Cancel</button>
                             </div>
                         </form>
