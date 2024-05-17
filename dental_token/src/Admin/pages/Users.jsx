@@ -77,8 +77,8 @@ const Users = () => {
                 <div style={{ paddingLeft: "60px", paddingTop: "20px" }}>
                     <div className="con">
                         <img src={img} alt="image"></img>
-                        <p>Receptionist</p>
-                        <p>Taba Dental Clinic</p>
+                        <p className="p1">Receptionist</p>
+                        <p className="p1">Taba Dental Clinic</p>
                     </div>
                     <div className="doctors">
                         <div style={{ gap: "100px" }} className="each">
