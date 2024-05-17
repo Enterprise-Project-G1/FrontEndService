@@ -28,21 +28,23 @@ const Logindoctor = () => {
 
   return (
     <div className="login-container">
-      <div className="login-form">
-        <h1>Login to Your Account</h1>
+      <div className="login-form123">
+        <h1 className="hh1">Login to Your Account</h1>
         <input
+        className="login12"
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
+        className="login12"
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={handleLogin}>Login</button>
+        <button className="bun12" onClick={handleLogin}>Login</button>
       </div>
       <div className="login-illustration">
         <p>Plant smiles for a better world</p>

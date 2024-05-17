@@ -83,7 +83,7 @@ const Users = () => {
                     <div className="doctors">
                         <div style={{ gap: "100px" }} className="each">
                             <p>Doctors</p>
-                            <div style={{ fontSize: "30px" }}>
+                            <div style={{ fontSize: "30px", marginLeft:"-15%" }}>
                                 <i onClick={toggleOverlay} class="fa-solid fa-circle-plus"></i>
                             </div>
                         </div>
@@ -144,9 +144,9 @@ const Users = () => {
                     <h1 style={{ color: "white" }}>Users</h1>
 
 
-                    <div className="App">
+                    <div className="App11">
                         {patients && (
-                            <table>
+                            <table className="table123">
                             <tr>
                                 <th>SI No</th>
                                 <th> UserName</th>

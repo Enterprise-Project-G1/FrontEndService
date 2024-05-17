@@ -114,7 +114,7 @@ const Feedback = () => {
                     <div className="doctors">
                         <div style={{ gap: "100px" }} className="each">
                             <p>Doctors</p>
-                            <div style={{ fontSize: "30px" }}>
+                            <div style={{ fontSize: "30px", marginLeft: "-15%" }}>
                                 <i onClick={toggleOverlay} class="fa-solid fa-circle-plus"></i>
                             </div>
                         </div>
@@ -173,9 +173,9 @@ const Feedback = () => {
                         </div>
                     </div>
                     <h1 style={{ color: "white" }}>Feedback</h1>
-                    <div className="App">
+                    <div className="App11">
                         {feedbacks &&
-                            <table>
+                            <table className="table123">
                                 <tr>
                                     <th>SI No</th>
                                     <th> UserName</th>
