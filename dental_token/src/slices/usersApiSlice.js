@@ -1,4 +1,4 @@
-import { FEEDBACK_URL, USERS_URL } from "../constants";
+import { FEEDBACK_URL, USERS_URL, NOTIFICATION_URL } from "../constants";
 import { PATIENT_URL, APPOINTMENT_URL, USER_URL } from "../constants";
 import { apiSlice } from "./apiSlice";
 
@@ -101,7 +101,14 @@ export const usersApliSlice = apiSlice.injectEndpoints({
                 url: PATIENT_URL + '/byEmail'
             }),
             providesTags: ['Patient']
-        })
+        }),
+        postNotification: builder.mutation({
+            query: (data) => ({
+                url: NOTIFICATION_URL,
+                method: 'POST',
+                body: data
+            }),
+        }),
     })
 })
 
@@ -109,4 +116,5 @@ export const usersApliSlice = apiSlice.injectEndpoints({
 export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useFeedbackMutation,
     useGetFeedbackQuery, useGetPatientQuery, useCheckEmailMutation, useCheckNumberMutation,
     usePostAppointmentMutation, useGetAppointmentQuery, useGetUsersQuery, usePostUsersMutation,
-    useDeleteFeedbackMutation, useDeleteAppointmentMutation, useGetPatientByEmailQuery } = usersApliSlice;
+    useDeleteFeedbackMutation, useDeleteAppointmentMutation, useGetPatientByEmailQuery,
+    usePostNotificationMutation } = usersApliSlice;

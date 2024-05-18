@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import img from '../img/image.png';
 import Nav from "./Navbar";
 import './../css/style.css';
-import { useGetFeedbackQuery, useGetAppointmentQuery, useGetPatientQuery, 
-    useGetUsersQuery, usePostUsersMutation, useDeleteAppointmentMutation } from "../../slices/usersApiSlice";
+import { useSelector } from 'react-redux';
+import {
+    useGetFeedbackQuery, useGetAppointmentQuery, useGetPatientQuery,
+    useGetUsersQuery, usePostUsersMutation, useDeleteAppointmentMutation, usePostNotificationMutation
+} from "../../slices/usersApiSlice";
 import { toast } from "react-toastify";
 
 const Dashboard = () => {
@@ -15,8 +18,13 @@ const Dashboard = () => {
     const { data: feedbacks, error, isLoading } = useGetFeedbackQuery();
     const { data: patients, pError, isPLoading } = useGetPatientQuery();
     const { data: appointments, aError, isALoading } = useGetAppointmentQuery();
-    const { data: users, userError} = useGetUsersQuery();
+    const { data: users, userError } = useGetUsersQuery();
     const [deleteAppointment] = useDeleteAppointmentMutation();
+    const [postNotification] = usePostNotificationMutation();
+    const [adminData, setAdminData] = useState(null);
+    const [adminId, setAdminId] = useState();
+    const { userInfo } = useSelector(state => state.auth);
+
 
     const [postUser] = usePostUsersMutation();
     const [name, setName] = useState('');
@@ -24,7 +32,8 @@ const Dashboard = () => {
     const [contact, setContact] = useState(null);
     const [gender, setGender] = useState('');
     const [password, setPassword] = useState('');
-    const [roles] = useState([{"id":2, "name":"Doctor"}]);
+    const [roles] = useState([{ "id": 2, "name": "Doctor" }]);
+    const message = "Your appointment was not approved!";
 
 
     useEffect(() => {
@@ -34,10 +43,24 @@ const Dashboard = () => {
             toast.error("Failed to fetch patients");
         } else if (aError) {
             toast.error("Failed to fetch appointments");
-        } else if (userError) {
-            toast.error("Faied to fetch users");
         }
-    }, [feedbacks, patients, appointments, users, error, pError, aError, userError]);
+
+    }, [feedbacks, patients, appointments, error, pError, aError]);
+
+    useEffect(() => {
+        if (userError) {
+            toast.error("Failed to fetch user details");
+        }
+        if (users && userInfo) {
+            console.log('users:', users);
+            console.log('userInfo:', userInfo);
+            const admin = users.find(user => user.email === userInfo.user.username);
+            if (admin) {
+                setAdminData(admin);
+                setAdminId(admin.id)
+            }
+        }
+    }, [users, userInfo, userError, adminData]);
 
     const handleNameChange = (e) => {
         setName(e.target.value);
@@ -59,16 +82,16 @@ const Dashboard = () => {
         setPassword(e.target.value);
     }
 
-    const handleSubmit = async(event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        if(name === "" || email === "" || contact === "" || gender === "" || password === "" || roles === ""){
+        if (name === "" || email === "" || contact === "" || gender === "" || password === "" || roles === "") {
             toast.error("All fields are required!")
-        }else{
-            try{
-                await postUser({name, email, contact, gender, password, roles}).unwrap();
+        } else {
+            try {
+                await postUser({ name, email, contact, gender, password, roles }).unwrap();
                 toast.success("User registration successful!")
                 window.location.reload();
-            }catch(err){
+            } catch (err) {
                 toast.error(err?.data?.message || err.error)
             }
         }
@@ -87,7 +110,7 @@ const Dashboard = () => {
         setShowOverlay1(true);
     };
     const handleConfirmSet = () => {
-        
+
         setShowOverlay1(false);
     };
 
@@ -95,18 +118,21 @@ const Dashboard = () => {
         setShowOverlay1(false);
     };
 
-    const handleDelete = (id) => {
+    const handleDelete = (id, patientId) => {
         setSelectedId(id);
+        setAdminId(patientId);
         setShowOverlay(true);
     };
 
-    const handleConfirmDelete = async(e) => {
+    const handleConfirmDelete = async (e) => {
         e.preventDefault()
-        try{
+        try {
             await deleteAppointment(selectedId);
+            const recieverId = adminId.toString()
+            await postNotification({ recieverId, message })
             toast.success("Appointment deleted successfully!")
             window.location.reload()
-        }catch(err) {
+        } catch (err) {
             toast.error(err?.data?.message || err.error)
         }
     };
@@ -137,7 +163,7 @@ const Dashboard = () => {
                     <div className="doctors">
                         <div style={{ gap: "100px" }} className="each">
                             <p>Doctors</p>
-                            <div style={{ fontSize: "30px", marginLeft:"-15%" }}>
+                            <div style={{ fontSize: "30px", marginLeft: "-15%" }}>
                                 <i onClick={toggleOverlay} class="fa-solid fa-circle-plus"></i>
                             </div>
                         </div>
@@ -221,7 +247,7 @@ const Dashboard = () => {
                                                 <button style={{ background: "#57C5CA" }} className="btn" onClick={() => handleSet(val.id)}>Token No</button>
                                             </td>
                                             <td>
-                                                <button className="btn" onClick={() => handleDelete(val.id)}>Delete</button>
+                                                <button className="btn" onClick={() => handleDelete(val.id, patient.id)}>Delete</button>
                                             </td>
                                         </tr>
                                     )

@@ -13,7 +13,7 @@ const Feedback = () => {
     const { data: feedbacks, error, isLoading } = useGetFeedbackQuery();
     const {data: patients, pError, isPLoading} = useGetPatientQuery();
     const {data: appointments, aError, isALoading} = useGetAppointmentQuery();
-    const { data: users, userError, isUserLoading } = useGetUsersQuery();
+    const { data: users, userError } = useGetUsersQuery();
     const [deleteFeedback] = useDeleteFeedbackMutation();
 
     const [postUser] = usePostUsersMutation();
@@ -107,7 +107,7 @@ const Feedback = () => {
 
                 <div style={{ paddingLeft: "60px", paddingTop: "20px" }}>
                     <div className="con">
-                        <img src={img} alt="image"></img>
+                        <img src={img} alt="images"></img>
                         <p className="p1">Receptionist</p>
                         <p className ="p1">Taba Dental Clinic</p>
                     </div>
