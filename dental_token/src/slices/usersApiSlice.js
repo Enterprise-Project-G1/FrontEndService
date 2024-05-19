@@ -121,6 +121,18 @@ export const usersApliSlice = apiSlice.injectEndpoints({
                 method:'PUT'
             }),
         }),
+        getNotification: builder.query({
+            query: () => ({
+                url: NOTIFICATION_URL
+            }),
+            providesTags: ['Notifications']
+        }),
+        deleteNotification: builder.mutation({
+            query: (id) => ({
+                url: NOTIFICATION_URL + `/${id}`,
+                method: 'DELETE'
+            }),
+        }),
     })
 })
 
@@ -129,4 +141,5 @@ export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useFeed
     useGetFeedbackQuery, useGetPatientQuery, useCheckEmailMutation, useCheckNumberMutation,
     usePostAppointmentMutation, useGetAppointmentQuery, useGetUsersQuery, usePostUsersMutation,
     useDeleteFeedbackMutation, useDeleteAppointmentMutation, useGetPatientByEmailQuery,
-    usePostNotificationMutation, useUpdatePatientEnableMutation, useUpdatePatientDisableMutation } = usersApliSlice;
+    usePostNotificationMutation, useUpdatePatientEnableMutation, useUpdatePatientDisableMutation,
+    useGetNotificationQuery, useDeleteNotificationMutation } = usersApliSlice;

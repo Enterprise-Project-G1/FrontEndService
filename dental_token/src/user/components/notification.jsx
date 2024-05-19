@@ -1,27 +1,52 @@
 // Notification.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import Header from './header';
 import Footer from './footer';
 import Nav from './navigation';
 // import { Link } from "react-router-dom";
 import img from "../img/Vector.png";
 import "./../css/notification.css"
+import { useGetPatientQuery, useGetNotificationQuery, useDeleteNotificationMutation } from "../../slices/usersApiSlice";
 
 const Notification = () => {
   const [showOverlay, setShowOverlay] = useState(false);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const { userInfo } = useSelector(state => state.auth);
+  const { data: patients, error } = useGetPatientQuery();
+  const { data: notifications, nError } = useGetNotificationQuery();
+  const [id, setId] = useState(null);
+  const [recieverId, setRecieverId]= useState(null);
+  const [deleteNotification] = useDeleteNotificationMutation();
 
-  const handleDelete = () => {
+  useEffect(() => {
+    if (error) {
+      toast.error("Failed to fetch patient details");
+    } else if (nError) {
+      toast.error("Failed to fetch the notifications.")
+    }
+    if (patients && userInfo) {
+      const patient = patients.find(patient => patient.email === userInfo.user.username);
+      if (patient) {
+        setRecieverId(patient.id);
+      }
+    }
+  }, [patients, userInfo, error, nError])
+
+  const handleDelete = (id) => {
+    setId(id);
     setShowOverlay(true);
   };
 
-  const handleConfirmDelete = () => {
-    // Update your state or perform other actions as needed
-    setShowOverlay(false);
-    setShowSuccessMessage(true);
-    setTimeout(() => {
-      setShowSuccessMessage(false);
-    }, 2000); // Hide success message after 2 seconds
+  const handleConfirmDelete = async(e) => {
+    e.preventDefault();
+    try {
+      await deleteNotification(id);
+      toast.success("Notification deleted successfully!")
+      window.location.reload();
+    }catch (err) {
+      toast.error(err?.data?.message || err.error)
+    }
   };
 
   const handleCancelDelete = () => {
@@ -39,86 +64,25 @@ const Notification = () => {
             <h2>Notification</h2>
 
             {/* <div className="main"> */}
-            <div className="all">
-              <div className="emp"></div>
-              <div className="each">
-                <img src={img} alt="img" />
-                <p style={{ width: "88%", color: "white" }}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                  nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                  reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                  nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                  sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <i onClick={() => handleDelete()} style={{ fontSize: "28px", color: "#57C5CA" }} class="fa-solid fa-trash-can"></i>
-              </div>
-            </div>
-            <div className="all">
-              <div className="emp"></div>
-              <div className="each">
-                <img src={img} alt="img" />
-                <p style={{ width: "88%", color: "white" }}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                  nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                  reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                  nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                  sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <i onClick={() => handleDelete()} style={{ fontSize: "28px", color: "#57C5CA" }} class="fa-solid fa-trash-can"></i>
-              </div>
-            </div>
-            <div className="all">
-              <div className="emp"></div>
-              <div className="each">
-                <img src={img} alt="img" />
-                <p style={{ width: "88%", color: "white" }}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                  nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                  reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                  nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                  sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <i onClick={() => handleDelete()} style={{ fontSize: "28px", color: "#57C5CA" }} class="fa-solid fa-trash-can"></i>
-              </div>
-            </div>
-            <div className="all">
-              <div className="emp"></div>
-              <div className="each">
-                <img src={img} alt="img" />
-                <p style={{ width: "88%", color: "white" }}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                  nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                  reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                  nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                  sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <i onClick={() => handleDelete()} style={{ fontSize: "28px", color: "#57C5CA" }} class="fa-solid fa-trash-can"></i>
-              </div>
-            </div>
-            <div className="all">
-              <div className="emp"></div>
-              <div className="each">
-                <img src={img} alt="img" />
-                <p style={{ width: "88%", color: "white" }}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                  nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                  reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                  nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                  sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <i onClick={() => handleDelete()} style={{ fontSize: "28px", color: "#57C5CA" }} class="fa-solid fa-trash-can"></i>
-              </div>
-            </div>
+            {notifications && notifications.map((notification) => {
+              if (notification.recieverId === recieverId.toString()) {
+                return (
+                  <div className="all">
+                    <div className="emp"></div>
+                    <div className="each">
+                      <img src={img} alt="img" />
+                      <p style={{ width: "88%", color: "white" }}>
+                        {notification.message}
+                      </p>
+                      <i onClick={() => handleDelete(notification.id)} style={{ fontSize: "28px", color: "#57C5CA" }} class="fa-solid fa-trash-can"></i>
+                    </div>
+                  </div>
+                )
+              }
+              return null;
+            })
+
+            }
           </div>
         </div>
         {showOverlay && (
@@ -128,11 +92,6 @@ const Notification = () => {
               <button style={{ background: "#373C3E" }} className="btn" onClick={handleConfirmDelete}>Yes</button>
               <button className="btn" onClick={handleCancelDelete}>No</button>
             </div>
-          </div>
-        )}
-        {showSuccessMessage && (
-          <div className="success-message">
-            <p>You have successfully deleted the notification!</p>
           </div>
         )}
       </div>
