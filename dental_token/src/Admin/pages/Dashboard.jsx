@@ -52,8 +52,6 @@ const Dashboard = () => {
             toast.error("Failed to fetch user details");
         }
         if (users && userInfo) {
-            console.log('users:', users);
-            console.log('userInfo:', userInfo);
             const admin = users.find(user => user.email === userInfo.user.username);
             if (admin) {
                 setAdminData(admin);

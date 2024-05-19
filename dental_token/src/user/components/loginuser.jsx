@@ -1,27 +1,37 @@
 // Login.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../css/login.css";
 import { useDispatch} from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify';
 import { setCredentials } from "../../slices/authSlice";
-import { useLoginMutation} from '../../slices/usersApiSlice'
+import { useLoginMutation, useGetPatientQuery} from '../../slices/usersApiSlice'
 // import logo from "../img/logo.png"
 import logo from "../img/fin LOGO.png";
 
 const Loginuser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {data: patients, error} = useGetPatientQuery();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [login] = useLoginMutation();
-  // const [getPatient] = useGetPatientByEmailQuery();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if(error) {
+      toast.error("Failed to fetch patients")
+    }
+    if(patients){
+      const patient = patients.find(p => p.email === email)
+      if(patient){
+        setUser(patient);
+      }
+    }
+  }, [patients, error, email]);
 
   const handleEmailChange = async(e) => {
     setEmail(e.target.value);
-    // const patient = await getPatient(email).unwrap();
-    // console.log(patient)
 }
 
 const handlePasswordChange = (e) => {
@@ -34,7 +44,7 @@ const handlePasswordChange = (e) => {
         const res = await login({email, password}).unwrap();
         if(res.user.authorities.length > 0){
           toast.error("You cannot login as a patient!")
-        }else if(res.user.enabled === false){
+        }else if(user.enabled === false){
           toast.error("Your account is not enabled!")
         }else{
           dispatch(setCredentials({...res,}));

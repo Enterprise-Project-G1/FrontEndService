@@ -98,7 +98,7 @@ export const usersApliSlice = apiSlice.injectEndpoints({
         }),
         getPatientByEmail: builder.query({
             query: () => ({
-                url: PATIENT_URL + '/byEmail'
+                url: PATIENT_URL + `/byEmail`
             }),
             providesTags: ['Patient']
         }),
@@ -109,6 +109,18 @@ export const usersApliSlice = apiSlice.injectEndpoints({
                 body: data
             }),
         }),
+        updatePatientEnable: builder.mutation({
+            query: (id) => ({
+                url: PATIENT_URL + `/enable/${id}`,
+                method:'PUT'
+            }),
+        }),
+        updatePatientDisable: builder.mutation({
+            query: (id) => ({
+                url: PATIENT_URL + `/disable/${id}`,
+                method:'PUT'
+            }),
+        }),
     })
 })
 
@@ -117,4 +129,4 @@ export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useFeed
     useGetFeedbackQuery, useGetPatientQuery, useCheckEmailMutation, useCheckNumberMutation,
     usePostAppointmentMutation, useGetAppointmentQuery, useGetUsersQuery, usePostUsersMutation,
     useDeleteFeedbackMutation, useDeleteAppointmentMutation, useGetPatientByEmailQuery,
-    usePostNotificationMutation } = usersApliSlice;
+    usePostNotificationMutation, useUpdatePatientEnableMutation, useUpdatePatientDisableMutation } = usersApliSlice;

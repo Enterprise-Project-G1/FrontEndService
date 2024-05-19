@@ -2,20 +2,23 @@ import React, { useState, useEffect } from "react";
 import Nav from "./Navbar";
 import './../css/style.css';
 import img from '../img/image.png';
-import { useGetAppointmentQuery, useGetFeedbackQuery, useGetPatientQuery, useGetUsersQuery,
-    usePostUsersMutation } from "../../slices/usersApiSlice";
+import {
+    useGetAppointmentQuery, useGetFeedbackQuery, useGetPatientQuery, useGetUsersQuery,
+    usePostUsersMutation, useUpdatePatientEnableMutation, useUpdatePatientDisableMutation
+} from "../../slices/usersApiSlice";
 import { toast } from "react-toastify";
 
 const Users = () => {
     const [showOverlay, setShowOverlay] = useState(false);
+    const [showOverlay1, setShowOverlay1] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-    const [selectedId, setSelectedId] = useState(null);
+    const [id, setId] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const [showSuccessMessage2, setShowSuccessMessage2] = useState(false);
     const { data: feedbacks, error, isLoading } = useGetFeedbackQuery();
-    const {data: patients, pError, isPLoading} = useGetPatientQuery();
-    const {data: appointments, aError, isALoading} = useGetAppointmentQuery();
-    const {data: users, useError} = useGetUsersQuery();
+    const { data: patients, pError, isPLoading } = useGetPatientQuery();
+    const { data: appointments, aError, isALoading } = useGetAppointmentQuery();
+    const { data: users, useError } = useGetUsersQuery();
 
     const [postUser] = usePostUsersMutation();
     const [name, setName] = useState('');
@@ -23,16 +26,19 @@ const Users = () => {
     const [contact, setContact] = useState(null);
     const [gender, setGender] = useState('');
     const [password, setPassword] = useState('');
-    const [roles] = useState([{"id":2, "name":"Doctor"}]);
+    const [roles] = useState([{ "id": 2, "name": "Doctor" }]);
+
+    const [disableUser] = useUpdatePatientDisableMutation();
+    const [enableUser] = useUpdatePatientEnableMutation();
 
     useEffect(() => {
         if (error) {
             toast.error("Failed to fetch testimonials");
-        }else if(pError){
+        } else if (pError) {
             toast.error("Failed to fetch patients");
-        }else if(aError) {
+        } else if (aError) {
             toast.error("Failed to fetch appointments");
-        }else if(useError){
+        } else if (useError) {
             toast.error("Failed to fetch appointments");
         }
     }, [feedbacks, patients, appointments, users, error, pError, aError, useError]);
@@ -60,17 +66,17 @@ const Users = () => {
     const toggleOverlay = () => {
         setIsOpen(!isOpen);
     };
-    
-    const handleSubmit = async(event) => {
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        if(name === "" || email === "" || contact === "" || gender === "" || password === "" || roles === ""){
+        if (name === "" || email === "" || contact === "" || gender === "" || password === "" || roles === "") {
             toast.error("All fields are required!")
-        }else{
-            try{
-                await postUser({name, email, contact, gender, password, roles}).unwrap();
+        } else {
+            try {
+                await postUser({ name, email, contact, gender, password, roles }).unwrap();
                 toast.success("User registration successful!")
                 window.location.reload();
-            }catch(err){
+            } catch (err) {
                 toast.error(err?.data?.message || err.error)
             }
         }
@@ -81,24 +87,44 @@ const Users = () => {
         setIsOpen(false);
     };
 
-    const handleDelete = (id) => {
-        setSelectedId(id);
+    const handleDisable = (id) => {
+        setId(id);
         setShowOverlay(true);
     };
 
-    const handleConfirmDelete = () => {
-        // const newData = data.filter(item => item.id !== selectedId);
-        // // Update your state or perform other actions as needed
-        // setShowOverlay(false);
-        // setShowSuccessMessage(true);
-        // setTimeout(() => {
-        //     setShowSuccessMessage(false);
-        // }, 2000); // Hide success message after 2 seconds
-        toast.success("Clicked!!")
+    const handleConfirmDisable = async (e) => {
+        e.preventDefault();
+        try {
+            await disableUser(id);
+            toast.success("User account disabled successfully!")
+            window.location.reload();
+        } catch (err) {
+            toast.error(err?.data?.message || err.error)
+        }
     };
 
-    const handleCancelDelete = () => {
+    const handleCancelDisable = () => {
         setShowOverlay(false);
+    };
+
+    const handleEnable = (id) => {
+        setId(id);
+        setShowOverlay1(true);
+    };
+
+    const handleConfirmEnable = async (e) => {
+        e.preventDefault();
+        try {
+            await enableUser(id);
+            toast.success("User account enabled successfully!")
+            window.location.reload();
+        } catch (err) {
+            toast.error(err?.data?.message || err.error)
+        }
+    };
+
+    const handleCancelEnable = () => {
+        setShowOverlay1(false);
     };
     return (
         <div className="pp" style={{ background: "#373C3E" }}>
@@ -114,7 +140,7 @@ const Users = () => {
                     <div className="doctors">
                         <div style={{ gap: "100px" }} className="each">
                             <p>Doctors</p>
-                            <div style={{ fontSize: "30px", marginLeft:"-15%" }}>
+                            <div style={{ fontSize: "30px", marginLeft: "-15%" }}>
                                 <i onClick={toggleOverlay} class="fa-solid fa-circle-plus"></i>
                             </div>
                         </div>
@@ -142,10 +168,10 @@ const Users = () => {
                             {isPLoading && <p>Loading Patients</p>}
                             {patients && (
                                 <div>
-                                <p>Total no. of Users</p>
-                                <p>{patients.length}</p>
-                            </div>
-                            )} 
+                                    <p>Total no. of Users</p>
+                                    <p>{patients.length}</p>
+                                </div>
+                            )}
                         </div>
                         <div className="total">
                             <div className="icon-container"> {/* Container for the icon */}
@@ -154,9 +180,9 @@ const Users = () => {
                             {isALoading && <p>Loading Appointments</p>}
                             {appointments && (
                                 <div>
-                                <p>Today's appointments</p>
-                                <p>{appointments.length}</p>
-                            </div>
+                                    <p>Today's appointments</p>
+                                    <p>{appointments.length}</p>
+                                </div>
                             )}
                         </div>
                         <div className="total">
@@ -178,27 +204,40 @@ const Users = () => {
                     <div className="App11">
                         {patients && (
                             <table className="table123">
-                            <tr>
-                                <th>SI No</th>
-                                <th> UserName</th>
-                                <th>Email</th>
-                                <th>Action</th>
-                            </tr>
-                            {patients.map((val, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td>{val.name}</td>
-                                        <td>{val.email}</td>
-                                        <td>
-                                            <button className="btn" onClick={() => handleDelete(val.id)}>Disable</button>
-                                        </td>
-                                    </tr>
-                                )
-                            })}
-                        </table>
+                                <tr>
+                                    <th>SI No</th>
+                                    <th> UserName</th>
+                                    <th>Email</th>
+                                    <th>Action</th>
+                                </tr>
+                                {patients.map((val, index) => {
+                                    if (val.enabled === false) {
+                                        return (
+                                            <tr key={index}>
+                                                <td>{index + 1}</td>
+                                                <td>{val.name}</td>
+                                                <td>{val.email}</td>
+                                                <td>
+                                                    <button className="btn" onClick={() => handleEnable(val.id)}>Enable</button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    } else {
+                                        return (
+                                            <tr key={index}>
+                                                <td>{index + 1}</td>
+                                                <td>{val.name}</td>
+                                                <td>{val.email}</td>
+                                                <td>
+                                                    <button className="btn" onClick={() => handleDisable(val.id)}>Disable</button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    }
+                                })}
+                            </table>
                         )}
-                        
+
 
 
                     </div>
@@ -209,25 +248,36 @@ const Users = () => {
             {showOverlay && (
                 <div className="overlay">
                     <div className="overlay-content">
-                        <h2>Are you sure you want to delete the User?</h2>
-                        <button style={{ background: "#373C3E" }} className="btn" onClick={handleConfirmDelete}>Yes</button>
-                        <button className="btn" onClick={handleCancelDelete}>No</button>
+                        <h2>Are you sure you want to disable the user account?</h2>
+                        <button style={{ background: "#373C3E" }} className="btn" onClick={handleConfirmDisable}>Yes</button>
+                        <button className="btn" onClick={handleCancelDisable}>No</button>
                     </div>
                 </div>
             )}
+
+            {showOverlay1 && (
+                <div className="overlay">
+                    <div className="overlay-content">
+                        <h2>Are you sure you want to enable the user account?</h2>
+                        <button style={{ background: "#373C3E" }} className="btn" onClick={handleConfirmEnable}>Yes</button>
+                        <button className="btn" onClick={handleCancelEnable}>No</button>
+                    </div>
+                </div>
+            )}
+
             {showSuccessMessage && (
                 <div className="success-message">
                     <p>You have successfully deleted the user!</p>
                 </div>
             )}
 
-             {/* Add Doctor */}
-             {isOpen && (
+            {/* Add Doctor */}
+            {isOpen && (
                 <div className="overlay">
                     <div className="overlay-content">
-                        <h1 style={{color:"white"}}>Add Doctor</h1>
-                        <div style={{paddingBottom:"10px"}}>
-                        <i style={{fontSize:"70px"}} class="fa-solid fa-user-plus"></i>
+                        <h1 style={{ color: "white" }}>Add Doctor</h1>
+                        <div style={{ paddingBottom: "10px" }}>
+                            <i style={{ fontSize: "70px" }} class="fa-solid fa-user-plus"></i>
                         </div>
                         <form className="form" onSubmit={handleSubmit}>
                             <input
@@ -249,35 +299,35 @@ const Users = () => {
                                 onChange={handleEmailChange}
                                 required
                             />
-                                <input
-                                    type="password"
-                                    id="password"
-                                    name="password"
-                                    value={password}
-                                    placeholder="Password"
-                                    onChange={handlePasswordChange}
-                                    required
-                                />
-                                  <input
-                                    type="contact"
-                                    id="contact"
-                                    name="contact"
-                                    value={contact}
-                                    placeholder="Contact"
-                                    onChange={handleContactChange}
-                                    required
-                                />
-                                  <input
-                                    type="gender"
-                                    id="gender"
-                                    name="gender"
-                                    value={gender}
-                                    placeholder="Gender"
-                                    onChange={handleGenderChange}
-                                    required
-                                />
-                
-                          
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                value={password}
+                                placeholder="Password"
+                                onChange={handlePasswordChange}
+                                required
+                            />
+                            <input
+                                type="contact"
+                                id="contact"
+                                name="contact"
+                                value={contact}
+                                placeholder="Contact"
+                                onChange={handleContactChange}
+                                required
+                            />
+                            <input
+                                type="gender"
+                                id="gender"
+                                name="gender"
+                                value={gender}
+                                placeholder="Gender"
+                                onChange={handleGenderChange}
+                                required
+                            />
+
+
                             <div>
                                 <button style={{ background: "#373C3E" }} className="btn" onClick={handleSubmit}>Submit</button>
                                 <button className="btn" onClick={handleCancelAdding}>Cancel</button>
