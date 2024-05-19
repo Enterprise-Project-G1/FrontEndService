@@ -17,24 +17,11 @@
   column-gap: 50px;
 }
 
-/* .navbar .left-links {
-  margin-right: auto; /* Move left links closer to the center 
-}
-
-.navbar .right-links {
-  margin-left: auto; /* Move right links closer to the center 
-} */
-
-
 .navbar a {
   text-decoration: none;
   color: #ffffff;
   position: relative; /* Add position relative for pseudo-element */
 }
-
-/* .navbar .left-links :hover {
-  border-bottom: 1px solid #ffffff; /* Add border-bottom when hovered 
-} */
 
 .navbar .left-links :hover::after {
   content: ""; /* Add empty content for pseudo-element */
