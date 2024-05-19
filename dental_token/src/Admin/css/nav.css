@@ -34,11 +34,12 @@ li{
 .inner{
     /* background-color: blueviolet; */
     column-gap: 100px;
-    height: 30px;
+    /* height: 30px; */
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
+    padding-bottom: 5%;
 }
 .logout{
     padding-right: 30px;
