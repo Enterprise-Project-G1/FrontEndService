@@ -5,7 +5,7 @@ import { Icon } from "@iconify/react";
 import Header from "./header";
 import Footer from "./footer";
 import Nav from "./navigation";
-import { usePostAppointmentMutation, useGetPatientQuery } from "../../slices/usersApiSlice";
+import { usePostAppointmentMutation, useGetPatientQuery, useGetAppointmentQuery } from "../../slices/usersApiSlice";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 const Token = () => {
   const [postAppointment] = usePostAppointmentMutation();
   const { data: patients, error} = useGetPatientQuery();
+  const { data: appointments, aError} = useGetAppointmentQuery();
   const { userInfo } = useSelector(state => state.auth);
   const [patientData, setPatientData] = useState(null);
   const [patientId, setPatientId] = useState(null);
@@ -23,6 +24,8 @@ const Token = () => {
   useEffect(() => {
     if (error) {
       toast.error("Failed to fetch patient details");
+    }else if(aError) {
+      toast.error("Failed to fetch appointments");
     }
     if (patients && userInfo) {
       const patient = patients.find(patient => patient.email === userInfo.user.username);
@@ -31,7 +34,7 @@ const Token = () => {
         setPatientId(patient.id);
       }
     }
-  }, [patients, userInfo, error, patientData]);
+  }, [patients, appointments, userInfo, error, aError, patientData]);
 
   const handleDateChange = (e) => {
     setDate(e.target.value);
@@ -43,18 +46,33 @@ const Token = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const dateFromDatabase = new Date(date);
+    dateFromDatabase.setHours(0, 0, 0, 0);
+
+    const isNotEarlierThanToday = dateFromDatabase >= today;
+  
     if(patientId === null){
       toast.error("Please login to book appointment!");
       navigate('/login');
     }else if(date === "" || reason === ""){
       toast.error("All fields are required!")
+    }else if(isNotEarlierThanToday === false){
+      toast.error("Invalid date provided for appointment!")
     }else{
-      try{
-        await postAppointment({patientId, date, reason}).unwrap();
-        toast.success("Appointment Sent Successfully!")
-        window.location.reload();
-      }catch (err){
-        toast.error(err?.data?.message || err.error)
+      const cAppointment = appointments.find(appointment => appointment.patientId === patientId);
+      if(cAppointment){
+        toast.error("You already have an appointment.")
+      }else{
+        try{
+          await postAppointment({patientId, date, reason}).unwrap();
+          toast.success("Appointment Sent Successfully!")
+          window.location.reload();
+        }catch (err){
+          toast.error(err?.data?.message || err.error)
+        }
       }
     }
   };
@@ -146,7 +164,7 @@ const Token = () => {
           <div className="form123">
             <form id="booking-form123">
               <h3>Get your turn now</h3>
-              <input className="in33" onChange={handleDateChange} id="date" type="text" value={date} name="Date" placeholder="Date" />
+              <input className="in33" onChange={handleDateChange} id="date" type="date" value={date} name="Date" placeholder="Date" />
               <input className="in34" onChange={hadleReasonChange} id="reason" type="text" value={reason} name="phone" placeholder="Reason" />
               <button onClick={handleSubmit} type="submit">Book Appointment</button>
               {/* <h3>Book Now</h3> */}

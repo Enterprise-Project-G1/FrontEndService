@@ -20,18 +20,18 @@ const Sidebar = () => {
             <div className="line"></div>
 
             <div className="menu">
-                    <div className="menuItem ">
-                        <span style={{fontSize:"20px"}}><TbReportAnalytics /></span>
-                        {/* <span>Appointment</span> */}
-                        <Link exact to="/dashboard">Appointment</Link>
-                    </div>
-                    <div className="menuItem">
-                        <span style={{fontSize:"20px"}}><TbFileText /></span>
-                        {/* <span>Active Appointment</span> */}
-                        <Link to="/activeapp">Active Appointment</Link>
-                    </div>
+                <div className="menuItem ">
+                    <span style={{ fontSize: "20px" }}><TbReportAnalytics /></span>
+                    {/* <span>Appointment</span> */}
+                    <Link exact to="/admin/docdash">Appointment</Link>
+                </div>
+                <div className="menuItem">
+                    <span style={{ fontSize: "20px" }}><TbFileText /></span>
+                    {/* <span>Active Appointment</span> */}
+                    <Link to="/admin/active">Active Appointment</Link>
+                </div>
 
-            
+
 
             </div>
             <div className="line line2"></div>
@@ -43,9 +43,9 @@ const Sidebar = () => {
                 </div>
 
                 <div className="info-btn">
-            <button style={{backgroundColor:"#373c3e", color:"white"}}><span style={{fontSize:"19px"}}><FiLogOut /> </span>Log Out</button>
+                    <button style={{ backgroundColor: "#373c3e", color: "white" }}><span style={{ fontSize: "19px" }}><FiLogOut /> </span>Log Out</button>
                 </div >
-            
+
 
             </div>
 

@@ -18,9 +18,15 @@ const Logindoctor = () => {
     e.preventDefault()
     try {
       const res = await login({email, password}).unwrap();
+      console.log(res)
       dispatch(setCredentials({...res,}));
       toast.success("Login Successful!")
-      navigate('/admin/dashboard')
+      if(res.user.authorities[0].authority === "Receptionist"){
+        navigate('/admin/dashboard')
+      }else{
+        navigate('/admin/docdash')
+      }
+      
     } catch (err) {
       toast.error(err?.data?.message || err.error)
     }

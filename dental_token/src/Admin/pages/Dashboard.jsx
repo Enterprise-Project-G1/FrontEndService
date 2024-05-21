@@ -5,15 +5,16 @@ import './../css/style.css';
 import { useSelector } from 'react-redux';
 import {
     useGetFeedbackQuery, useGetAppointmentQuery, useGetPatientQuery,
-    useGetUsersQuery, usePostUsersMutation, useDeleteAppointmentMutation, usePostNotificationMutation
-} from "../../slices/usersApiSlice";
+    useGetUsersQuery, usePostUsersMutation, useDeleteAppointmentMutation, usePostNotificationMutation,
+    usePostTokenMutation} from "../../slices/usersApiSlice";
 import { toast } from "react-toastify";
 
 const Dashboard = () => {
     const [showOverlay, setShowOverlay] = useState(false);
     const [showOverlay1, setShowOverlay1] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
-    const [number, setNumber] = useState(0)
+    const [token, setToken] = useState(0);
+    const [message, setMessage] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const { data: feedbacks, error, isLoading } = useGetFeedbackQuery();
     const { data: patients, pError, isPLoading } = useGetPatientQuery();
@@ -21,9 +22,11 @@ const Dashboard = () => {
     const { data: users, userError } = useGetUsersQuery();
     const [deleteAppointment] = useDeleteAppointmentMutation();
     const [postNotification] = usePostNotificationMutation();
+    const [postToken] = usePostTokenMutation();
     const [adminData, setAdminData] = useState(null);
     const [adminId, setAdminId] = useState();
     const { userInfo } = useSelector(state => state.auth);
+    const [appDate, setAppDate] = useState();
 
 
     const [postUser] = usePostUsersMutation();
@@ -33,7 +36,6 @@ const Dashboard = () => {
     const [gender, setGender] = useState('');
     const [password, setPassword] = useState('');
     const [roles] = useState([{ "id": 2, "name": "Doctor" }]);
-    const message = "Your appointment was not approved!";
 
 
     useEffect(() => {
@@ -103,23 +105,57 @@ const Dashboard = () => {
         setIsOpen(false);
     };
 
-    const handleSet = (id) => {
+    const handleSet = (id, date) => {
         setSelectedId(id);
         setShowOverlay1(true);
+        setMessage(`You have been assigned with token number ${token} on date ${date}.`)
+        setAppDate(date);
     };
-    const handleConfirmSet = () => {
 
-        setShowOverlay1(false);
+    const handleConfirmSet = async(e) => {
+        e.preventDefault()
+        try {
+            const id = parseInt(selectedId);
+            const cAppointments = appointments.filter(appointment => appointment.date === appDate);
+            console.log("cAppointments:", cAppointments)
+            let cPatients=[];
+            if(cAppointments.length > 0){
+                for (let i = 0; i < cAppointments.length; i++) {
+                    const patientsForAppointment = patients.filter(patient => patient.id === cAppointments[i].patientId);
+                    cPatients = cPatients.concat(patientsForAppointment);
+                }
+                const cToken = cPatients.find(patient => Number(patient.token) === Number(token))
+                console.log("cPatients:", cPatients)
+                console.log("cToken:", cToken)
+                console.log(token)
+                if (cToken){
+                    toast.error("The token is already assigned to a user on same date!")
+                }else{
+                    try {
+                        await postToken({id, token}).unwrap();
+                        const recieverId = adminId.toString()
+                        await postNotification({ recieverId, message })
+                        toast.success("Successfully assigned token to the user!")
+                        window.location.reload();
+                    } catch (err) {
+                        toast.error(err?.data?.message || err.error)
+                    }
+                }
+            }
+        } catch (err) {
+            toast.error(err?.data?.message || err.error)
+        }
     };
 
     const handleCancelSet = () => {
         setShowOverlay1(false);
     };
 
-    const handleDelete = (id, patientId) => {
+    const handleDelete = (id, patientId, date) => {
         setSelectedId(id);
         setAdminId(patientId);
         setShowOverlay(true);
+        setMessage(`Your appointment on ${date} has been declined!`)
     };
 
     const handleConfirmDelete = async (e) => {
@@ -140,11 +176,7 @@ const Dashboard = () => {
     };
 
     const handleChange = (event) => {
-        // Ensure that the input value is a valid number
-        const newValue = parseInt(event.target.value)
-        if (!isNaN(newValue)) {
-            setNumber(newValue)
-        }
+        setToken(event.target.value)
     }
 
     return (
@@ -242,10 +274,10 @@ const Dashboard = () => {
                                             <td>{val.reason}</td>
                                             <td>{val.date}</td>
                                             <td>
-                                                <button style={{ background: "#57C5CA" }} className="btn" onClick={() => handleSet(val.id)}>Token No</button>
+                                                <button style={{ background: "#57C5CA" }} className="btn" onClick={() => handleSet(val.patientId, val.date)}>Token No</button>
                                             </td>
                                             <td>
-                                                <button className="btn" onClick={() => handleDelete(val.id, patient.id)}>Delete</button>
+                                                <button className="btn" onClick={() => handleDelete(val.id, patient.id, val.date)}>Delete</button>
                                             </td>
                                         </tr>
                                     )
@@ -272,10 +304,10 @@ const Dashboard = () => {
                 <div className="overlay">
                     <div style={{ display: "flex", flexDirection: "column", gap: "20px", justifyContent: "center", alignItems: "center" }} className="overlay-content">
                         <input style={{ width: "150px", height: "30px" }}
-                            type="number"
-                            value={number}
+                            type="text"
+                            name="token"
+                            value={token}
                             onChange={handleChange}
-                            min={0} // Optional: Set minimum value for the input
                         />
                         <div>
                             <button style={{ background: "#373C3E" }} className="btn" onClick={handleConfirmSet}>Save</button>

@@ -133,6 +133,26 @@ export const usersApliSlice = apiSlice.injectEndpoints({
                 method: 'DELETE'
             }),
         }),
+        postToken: builder.mutation({
+            query: ({id, token}) => ({
+                url: PATIENT_URL + `/update/${id}`,
+                method:'PUT',
+                body: {token}
+            }),
+        }),
+        checkToken: builder.mutation({
+            query: (data) => ({
+                url: PATIENT_URL + '/isTokenUnique',
+                method: 'POST',
+                body: data
+            }),
+        }),
+        getAppointmentByDate: builder.query({
+            query: () => ({
+                url: APPOINTMENT_URL + "/byDate"
+            }),
+            providesTags: ['Appointments']
+        }),
     })
 })
 
@@ -142,4 +162,5 @@ export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useFeed
     usePostAppointmentMutation, useGetAppointmentQuery, useGetUsersQuery, usePostUsersMutation,
     useDeleteFeedbackMutation, useDeleteAppointmentMutation, useGetPatientByEmailQuery,
     usePostNotificationMutation, useUpdatePatientEnableMutation, useUpdatePatientDisableMutation,
-    useGetNotificationQuery, useDeleteNotificationMutation } = usersApliSlice;
+    useGetNotificationQuery, useDeleteNotificationMutation, usePostTokenMutation, useCheckTokenMutation,
+    useGetAppointmentByDateQuery } = usersApliSlice;
