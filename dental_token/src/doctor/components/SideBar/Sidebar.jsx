@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 // import './Sidebar.css'
 import "../SideBar/Sidebar.css";
 // import Logo from '../../image/fin LOGO.png';
@@ -9,8 +9,26 @@ import "../../../App.css";
 import { TbReportAnalytics } from "react-icons/tb";
 import { TbFileText } from "react-icons/tb";
 import { FiLogOut } from "react-icons/fi";
+import { useSelector } from "react-redux";
+import { useGetUsersQuery } from "../../../slices/usersApiSlice";
+import { toast } from "react-toastify";
 
 const Sidebar = () => {
+    const {data: users, error} = useGetUsersQuery();
+    const {userInfo} = useSelector(state => state.auth);
+    const [userData, setUserData] = useState();
+
+    useEffect(() => {
+        if(error) {
+            toast.error("Failed to fetch user details!")
+        }
+        if(users && userInfo) {
+            const user = users.find(user => user.email === userInfo.user.username);
+            if(user) {
+                setUserData(user);
+            }
+        }
+    }, [users, userInfo, error, userData])
     return (
         <div className="Sidebar">
             <div className="logo">
@@ -38,7 +56,9 @@ const Sidebar = () => {
 
             <div className="doctorInfo">
                 <div className="div1">
-                    <p className="name">Tashi Wangyal</p>
+                    {userData && (
+                        <p className="name">{userData.name}</p>
+                    )}
                     <p>Dentist</p>
                 </div>
 
