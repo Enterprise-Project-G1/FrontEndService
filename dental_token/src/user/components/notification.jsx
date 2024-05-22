@@ -69,7 +69,7 @@ const Notification = () => {
                 return (
                   <div className="all">
                     <div className="emp"></div>
-                    <div className="each">
+                    <div className="each00">
                       <img src={img} alt="img" />
                       <p style={{ width: "88%", color: "white" }}>
                         {notification.message}

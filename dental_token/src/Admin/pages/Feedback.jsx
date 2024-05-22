@@ -226,6 +226,7 @@ const Feedback = () => {
                                 placeholder="Name"
                                 onChange={handleNameChange}
                                 required
+                                className="input00"
                             />
 
                             <input
@@ -236,6 +237,7 @@ const Feedback = () => {
                                 placeholder="Email"
                                 onChange={handleEmailChange}
                                 required
+                                className="input00"
                             />
                             <input
                                 type="password"
@@ -245,6 +247,7 @@ const Feedback = () => {
                                 placeholder="Password"
                                 onChange={handlePasswordChange}
                                 required
+                                className="input00"
                             />
                             <input
                                 type="contact"
@@ -254,6 +257,7 @@ const Feedback = () => {
                                 placeholder="Contact"
                                 onChange={handleContactChange}
                                 required
+                                className="input00"
                             />
                             <input
                                 type="gender"
@@ -263,6 +267,7 @@ const Feedback = () => {
                                 placeholder="Gender"
                                 onChange={handleGenderChange}
                                 required
+                                className="input00"
                             />
 
                             <div>

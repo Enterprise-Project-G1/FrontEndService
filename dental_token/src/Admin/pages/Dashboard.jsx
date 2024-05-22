@@ -335,6 +335,7 @@ const Dashboard = () => {
                                 placeholder="Name"
                                 onChange={handleNameChange}
                                 required
+                                className="input00"
                             />
 
                             <input
@@ -345,6 +346,7 @@ const Dashboard = () => {
                                 placeholder="Email"
                                 onChange={handleEmailChange}
                                 required
+                                className="input00"
                             />
                             <input
                                 type="password"
@@ -354,6 +356,7 @@ const Dashboard = () => {
                                 placeholder="Password"
                                 onChange={handlePasswordChange}
                                 required
+                                className="input00"
                             />
                             <input
                                 type="contact"
@@ -363,6 +366,7 @@ const Dashboard = () => {
                                 placeholder="Contact"
                                 onChange={handleContactChange}
                                 required
+                                className="input00"
                             />
                             <input
                                 type="gender"
@@ -372,6 +376,7 @@ const Dashboard = () => {
                                 placeholder="Gender"
                                 onChange={handleGenderChange}
                                 required
+                                className="input00"
                             />
 
                             <div>

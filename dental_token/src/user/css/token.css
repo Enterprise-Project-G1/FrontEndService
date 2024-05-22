@@ -129,7 +129,7 @@ button {
     margin-top: 1em;
     /* Adds additional space above the button if needed */
     padding: 12px;
-    width: 35%;
+    /* width: 35%; */
     background-color: #57C5CA;
     border: none;
     border-radius: 2px;

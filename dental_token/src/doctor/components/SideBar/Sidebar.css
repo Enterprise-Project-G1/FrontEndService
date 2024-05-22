@@ -1,13 +1,13 @@
-*{
+/* *{
     margin: 0;
     box-sizing: border-box;
-    overflow-x: hidden;
-}
+    /* overflow-x: hidden; */
+/* } */ 
 
 .Sidebar{
     display: flex;
     position: relative;
-    padding-top: 2rem;
+    padding-top: 4rem;
     transition: all 300 ease;
     border: 1px solid black;
     justify-content: flex-start;
@@ -20,7 +20,7 @@
 .logo{
     height: 120px;
     width: 120px;
-    display: flex;
+    /* display: flex; */
 }
 
 .line{

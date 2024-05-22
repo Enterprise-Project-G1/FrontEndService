@@ -80,7 +80,7 @@ const Signup = () => {
     <div className="signup-container">
       <div className="signup-form">
         <h1>Create an Account</h1>
-        <div className="name">
+        <div className="name00">
           <input
             type="text"
             name="name"

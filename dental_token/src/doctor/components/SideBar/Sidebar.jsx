@@ -31,8 +31,8 @@ const Sidebar = () => {
     }, [users, userInfo, error, userData])
     return (
         <div className="Sidebar">
-            <div className="logo">
-                <img src={Logo} alt="" />
+            <div style={{width:"150px",height:"150px"}} className="logo">
+                <img style={{width:"150px",height:"150px"}}  src={Logo} alt="" />
             </div>
 
             <div className="line"></div>
