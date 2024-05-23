@@ -153,6 +153,18 @@ export const usersApliSlice = apiSlice.injectEndpoints({
             }),
             providesTags: ['Appointments']
         }),
+        updatePatientActive: builder.mutation({
+            query: (id) => ({
+                url: PATIENT_URL + `/active/${id}`,
+                method:'PUT'
+            }),
+        }),
+        updatePatientInactive: builder.mutation({
+            query: (id) => ({
+                url: PATIENT_URL + `/inactive/${id}`,
+                method:'PUT'
+            }),
+        })
     })
 })
 
@@ -163,4 +175,4 @@ export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useFeed
     useDeleteFeedbackMutation, useDeleteAppointmentMutation, useGetPatientByEmailQuery,
     usePostNotificationMutation, useUpdatePatientEnableMutation, useUpdatePatientDisableMutation,
     useGetNotificationQuery, useDeleteNotificationMutation, usePostTokenMutation, useCheckTokenMutation,
-    useGetAppointmentByDateQuery } = usersApliSlice;
+    useGetAppointmentByDateQuery, useUpdatePatientActiveMutation, useUpdatePatientInactiveMutation } = usersApliSlice;

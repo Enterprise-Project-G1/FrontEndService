@@ -125,9 +125,6 @@ const Dashboard = () => {
                     cPatients = cPatients.concat(patientsForAppointment);
                 }
                 const cToken = cPatients.find(patient => Number(patient.token) === Number(token))
-                console.log("cPatients:", cPatients)
-                console.log("cToken:", cToken)
-                console.log(token)
                 if (cToken){
                     toast.error("The token is already assigned to a user on same date!")
                 }else{

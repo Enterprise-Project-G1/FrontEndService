@@ -19,6 +19,7 @@ const Token = () => {
   const [patientId, setPatientId] = useState(null);
   const [date, setDate] = useState(null);
   const [reason, setReason] = useState(null);
+  const [token, setToken] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,14 +28,23 @@ const Token = () => {
     }else if(aError) {
       toast.error("Failed to fetch appointments");
     }
+    if(patients){
+      const active = patients.find(patient => patient.active === true);
+      if(active){
+        setToken(active.token)
+      }
+    }
+
     if (patients && userInfo) {
       const patient = patients.find(patient => patient.email === userInfo.user.username);
+      
       if (patient) {
         setPatientData(patient);
         setPatientId(patient.id);
       }
+      
     }
-  }, [patients, appointments, userInfo, error, aError, patientData]);
+  }, [patients, appointments, userInfo, error, aError, patientData, token]);
 
   const handleDateChange = (e) => {
     setDate(e.target.value);
@@ -142,9 +152,9 @@ const Token = () => {
                 <Icon icon="material-symbols:format-quote-outline" />
 
               </div>
-              <div className="num3">
-                <p>12</p>
-              </div>
+              { token && (<div className="num3">
+                <p>{token}</p>
+              </div>)}
             </div>
             <div>
               <h3 style={{ marginTop: "-4%", color:'#57C5CA', textAlign:"center"}}>Book Now</h3>

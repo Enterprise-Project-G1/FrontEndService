@@ -1,22 +1,42 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../../components/MainDash/Maindash.css";
-// import Sidebar from "../SideBar/Sidebar";
 import Sidebar from "../SideBar/Sidebar";
 import '../../../App.css';
-import { useGetPatientQuery } from "../../../slices/usersApiSlice";
+import { useGetPatientQuery, useUpdatePatientActiveMutation, usePostTokenMutation, useUpdatePatientInactiveMutation } from "../../../slices/usersApiSlice";
 import { toast } from "react-toastify";
 
 const Maindash = () => {
-    const { data: patients, error, isPLoading } = useGetPatientQuery();
-    let sortedPatients=[];
+    const { data: patients, error } = useGetPatientQuery();
+    const [updateActive] = useUpdatePatientActiveMutation();
+    const [updateInactive] = useUpdatePatientInactiveMutation();
+    const [postToken] = usePostTokenMutation();
+    const [token, setToken] = useState(0);
+
+    let sortedPatients = [];
     useEffect(() => {
         if (error) {
-            toast.error("Failed to fetch patients")
+            toast.error("Failed to fetch patients");
         }
-    }, [patients, error])
-    if(patients){
+    }, [error]);
+
+    if (patients) {
         sortedPatients = [...patients].sort((a, b) => a.token - b.token);
     }
+
+    const handleSetActive = async (id, ctoken) => {
+        await updateActive(id).unwrap();
+        toast.success(`Token number ${ctoken} set active!`);
+        setToken(0);
+        const prevActive = sortedPatients.find(patient => patient.token === ctoken - 1);
+        console.log(prevActive)
+        if (prevActive) {
+            const id = prevActive.id;
+            await postToken({ id, token}).unwrap();
+            await updateInactive(id).unwrap();
+            window.location.reload();
+        }
+    };
+
     return (
         <div className="AppGlass">
             <Sidebar />
@@ -26,7 +46,6 @@ const Maindash = () => {
                 </div>
 
                 <div className="border">
-
                     <table className="table">
                         <thead>
                             <tr>
@@ -36,22 +55,22 @@ const Maindash = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* Rows here */}
                             {sortedPatients && sortedPatients.map((patient) => {
                                 if (patient.token > 0) {
                                     return (
-                                        <tr>
+                                        <tr key={patient.id}>
                                             <td>{patient.token}</td>
                                             <td>{patient.name}</td>
-                                            <div className="btn-cont">
-                                                <button>set active</button>
-                                            </div>
+                                            <td>
+                                                <div className="btn-cont">
+                                                    <button onClick={() => handleSetActive(patient.id, patient.token)}>Set Active</button>
+                                                </div>
+                                            </td>
                                         </tr>
-                                    )
+                                    );
                                 }
                                 return null;
-                            })
-                            }
+                            })}
                         </tbody>
                     </table>
                 </div>
