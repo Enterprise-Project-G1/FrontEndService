@@ -32,6 +32,7 @@ const Profile = () => {
   const confirmHandleDelete = (id) => {
     deleteReport(id)
     setShowToast(false)
+    window.location.reload();
   }
 
   useEffect(() => {
