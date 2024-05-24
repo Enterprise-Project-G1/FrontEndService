@@ -1,5 +1,5 @@
 import { FEEDBACK_URL, USERS_URL, NOTIFICATION_URL } from "../constants";
-import { PATIENT_URL, APPOINTMENT_URL, USER_URL } from "../constants";
+import { PATIENT_URL, APPOINTMENT_URL, USER_URL, REPORT_URL } from "../constants";
 import { apiSlice } from "./apiSlice";
 
 
@@ -112,13 +112,13 @@ export const usersApliSlice = apiSlice.injectEndpoints({
         updatePatientEnable: builder.mutation({
             query: (id) => ({
                 url: PATIENT_URL + `/enable/${id}`,
-                method:'PUT'
+                method: 'PUT'
             }),
         }),
         updatePatientDisable: builder.mutation({
             query: (id) => ({
                 url: PATIENT_URL + `/disable/${id}`,
-                method:'PUT'
+                method: 'PUT'
             }),
         }),
         getNotification: builder.query({
@@ -134,10 +134,10 @@ export const usersApliSlice = apiSlice.injectEndpoints({
             }),
         }),
         postToken: builder.mutation({
-            query: ({id, token}) => ({
+            query: ({ id, token }) => ({
                 url: PATIENT_URL + `/update/${id}`,
-                method:'PUT',
-                body: {token}
+                method: 'PUT',
+                body: { token }
             }),
         }),
         checkToken: builder.mutation({
@@ -156,15 +156,34 @@ export const usersApliSlice = apiSlice.injectEndpoints({
         updatePatientActive: builder.mutation({
             query: (id) => ({
                 url: PATIENT_URL + `/active/${id}`,
-                method:'PUT'
+                method: 'PUT'
             }),
         }),
         updatePatientInactive: builder.mutation({
             query: (id) => ({
                 url: PATIENT_URL + `/inactive/${id}`,
-                method:'PUT'
+                method: 'PUT'
             }),
-        })
+        }),
+        postReport: builder.mutation({
+            query: (data) => ({
+                url: REPORT_URL,
+                method: 'POST',
+                body: data
+            }),
+        }),
+        getReport: builder.query({
+            query: () => ({
+                url: REPORT_URL
+            }),
+            providesTags: ['Reports']
+        }),
+        deleteReport: builder.mutation({
+            query: (id) => ({
+                url: REPORT_URL + `/${id}`,
+                method: 'DELETE'
+            }),
+        }),
     })
 })
 
@@ -175,4 +194,5 @@ export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useFeed
     useDeleteFeedbackMutation, useDeleteAppointmentMutation, useGetPatientByEmailQuery,
     usePostNotificationMutation, useUpdatePatientEnableMutation, useUpdatePatientDisableMutation,
     useGetNotificationQuery, useDeleteNotificationMutation, usePostTokenMutation, useCheckTokenMutation,
-    useGetAppointmentByDateQuery, useUpdatePatientActiveMutation, useUpdatePatientInactiveMutation } = usersApliSlice;
+    useGetAppointmentByDateQuery, useUpdatePatientActiveMutation, useUpdatePatientInactiveMutation,
+    usePostReportMutation, useGetReportQuery, useDeleteReportMutation } = usersApliSlice;

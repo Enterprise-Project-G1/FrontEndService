@@ -7,3 +7,4 @@ export const PATIENT_URL = '/USERSERVICE/api/patient';
 export const FEEDBACK_URL = '/USERSERVICE/api/feedbacks';
 export const APPOINTMENT_URL = '/USERSERVICE/api/appointments';
 export const NOTIFICATION_URL = '/NOTIFICATIONSERVICE/api/notification';
+export const REPORT_URL = '/NOTIFICATIONSERVICE/api/report';

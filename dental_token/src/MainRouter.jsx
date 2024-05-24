@@ -6,6 +6,7 @@ import Users from './Admin/pages/Users';
 import Feedback from './Admin/pages/Feedback';
 import Active from './doctor/ActiveAppointment/Active/ActiveApp';
 import Maindash from './doctor/components/MainDash/Maindah';
+import ProtectedRoute from './ProtectedRoute';
 
 const MainRouter = () => {
   return (
@@ -13,11 +14,11 @@ const MainRouter = () => {
       <Router>
         <Routes>
             <Route path='/admin' element={<Login/>}/>
-            <Route path='/admin/dashboard' element={<Dashboard/>}/>
-            <Route path='/admin/users' element={<Users/>}/>
-            <Route path='/admin/feedbacks' element={<Feedback/>}/>
-            <Route path='/admin/docdash' element={<Maindash/>}/>
-            <Route path='/admin/active' element={<Active/>}/>
+            <Route path='/admin/dashboard' element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
+            <Route path='/admin/users' element={<ProtectedRoute><Users/></ProtectedRoute>}/>
+            <Route path='/admin/feedbacks' element={<ProtectedRoute><Feedback/></ProtectedRoute>}/>
+            <Route path='/admin/docdash' element={<ProtectedRoute><Maindash/></ProtectedRoute>}/>
+            <Route path='/admin/active' element={<ProtectedRoute><Active/></ProtectedRoute>}/>
         </Routes>
       </Router>
      </>

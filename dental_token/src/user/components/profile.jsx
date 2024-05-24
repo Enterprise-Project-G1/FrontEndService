@@ -6,29 +6,39 @@ import Header from './header';
 import Nav from './navigation';
 import Footer from './footer';
 import { toast } from 'react-toastify';
-import { useGetPatientQuery } from '../../slices/usersApiSlice';
+import { useGetPatientQuery, useGetReportQuery, useDeleteReportMutation } from '../../slices/usersApiSlice';
 
 const Profile = () => {
   const { data: patients, error, isLoading } = useGetPatientQuery();
+  const { data: reports, rError } = useGetReportQuery();
   const { userInfo } = useSelector(state => state.auth);
   const [patientData, setPatientData] = useState(null);
   const [showModel, setShowModel] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [reportData, setReportData] = useState([]);
+  const [sReport, setSreport] = useState(null);
+  const [deleteReport] = useDeleteReportMutation();
 
-
-
-  const handleView = () => {
+  const handleView = (val) => {
     setShowModel(true);
+    setSreport(val);
   }
+
   const handleDelete = () => {
     setShowToast(true);
     setShowModel(false);
+  }
 
+  const confirmHandleDelete = (id) => {
+    deleteReport(id)
+    setShowToast(false)
   }
 
   useEffect(() => {
     if (error) {
       toast.error("Failed to fetch patient details");
+    } else if (rError) {
+      toast.error("Failed to fetch reports");
     }
     if (patients && userInfo) {
       const patient = patients.find(patient => patient.email === userInfo.user.username);
@@ -36,7 +46,15 @@ const Profile = () => {
         setPatientData(patient);
       }
     }
-  }, [patients, userInfo, error, patientData]);
+  }, [patients, userInfo, error, rError]);
+
+  useEffect(() => {
+    if (patientData && reports) {
+      const id = patientData.id;
+      const cReport = reports.filter(report => report.patientId === id.toString());
+      setReportData(cReport);
+    }
+  }, [patientData, reports]);
 
   return (
     <div className="profile-container">
@@ -78,55 +96,49 @@ const Profile = () => {
       </div>
       <h2 className="documents-title">My Documents</h2>
       <div className="documents-container">
-        {[1, 2, 3, 4, 5, 6].map((_, index) => (
-          <div onClick={handleView} className="document" key={index}>
+        {reportData && reportData.map((val, index) => (
+          <div onClick={() => handleView(val)} className="document" key={index}>
             <div className="document-content">
-              <p className='date'>12/03/2024</p>
+              <p className='date'>{val.date.toString().split("T")[0]}</p>
             </div>
           </div>
         ))}
       </div>
       <Footer />
 
-      {showModel && (
+      {showModel && sReport &&(
         <div className="overlayt">
           <div className='overlay-contentt'>
-            <div onClick={() => setShowModel(false)} style={{ alignSelf: "end" }}><i class="fa-solid fa-xmark"></i></div>
-            <h2>Medical Reciept</h2>
+            <div onClick={() => setShowModel(false)} style={{ alignSelf: "end" }}><i className="fa-solid fa-xmark"></i></div>
+            <h2>Medical Receipt</h2>
             <div style={{ height: "1px", width: "95%", background: "#C6C6C6" }}></div>
             <div style={{ width: "80%", display: "flex", flexWrap: "wrap", gap: "50px" }}>
               <div>
                 <p>Name:</p>
-                <h4>Tashi Wangyel</h4>
+                <h4>{sReport.name}</h4>
               </div>
               <div>
                 <p>Contact Number:</p>
-                <h4>123456756</h4>
+                <h4>{sReport.number}</h4>
               </div>
               <div>
-                <p>Email:</p>
-                <h4>Tashi@gmail.com</h4>
+                <p>Reason:</p>
+                <h4>{sReport.reason}</h4>
               </div>
             </div>
             <div style={{ height: "1px", width: "95%", background: "#C6C6C6" }}></div>
             <div style={{ width: "80%", display: "flex", flexWrap: "wrap", flexDirection: "column", alignItems: "flex-start" }}>
               <h3>Details</h3>
-              <p style={{ textAlign: "start" }}>sdfghj cdhsg fdv gdfdgd vfdgfd fsgdf
-                sdgd dgdzgshjkl fdgdghjk dfgh jdfghj dfgh jdfgh jk
-                sdfghj dfgh jsdfghjk dfghj dfgh jsdfgh dfgh dfgh dfgh dfg
-                dfghjdfghj fgh jkfghjk fghjk ertyu ifgh jkrtyui rty uityu i
-                d fghj edfrgh jfg hj fghjkd fghj fghjkf ghjk ghjk ghj
-              </p>
+              <p style={{ textAlign: "start" }}>{sReport.details}</p>
               <p>Date</p>
-              <h3>12/3/2323</h3>
+              <h3>{sReport.date.toString().split("T")[0]}</h3>
             </div>
             <div>
-              <button style={{ background: "red", width: "110px" }} onClick={handleDelete}>Delete</button>
+              <button style={{ background: "red", width: "110px" }} onClick={() => handleDelete()}>Delete</button>
             </div>
-
           </div>
         </div>
-      )}
+        )}
 
       {showToast && (
         <div className="overlay" onClick={() => setShowToast(false)} />
@@ -135,13 +147,11 @@ const Profile = () => {
         <div className="toast" style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: '#FFFFFF', color: '#000', padding: '10px 20px', borderRadius: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: '1000' }}>
           <p style={{ marginBottom: '10px' }}>Are you sure you want to delete Medical report.</p>
           <div style={{ display: 'flex', justifyContent: 'space-between', width: '70%', gap: "10px" }}>
-            <button onClick={() => setShowToast(false)} className="toast-button" style={{ color: 'white', backgroundColor: '#FF0000', minWidth: '120px' }}>Delete</button>
-
+            <button onClick={() => confirmHandleDelete(sReport.id)} className="toast-button" style={{ color: 'white', backgroundColor: '#FF0000', minWidth: '120px' }}>Delete</button>
             <button onClick={() => setShowToast(false)} className="toast-button" style={{ color: '#373C3E', minWidth: '120px' }}>Cancel</button>
           </div>
         </div>
       )}
-
     </div>
   );
 };

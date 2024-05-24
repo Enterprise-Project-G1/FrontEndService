@@ -6,14 +6,15 @@ import { useSelector } from 'react-redux';
 import {
     useGetFeedbackQuery, useGetAppointmentQuery, useGetPatientQuery,
     useGetUsersQuery, usePostUsersMutation, useDeleteAppointmentMutation, usePostNotificationMutation,
-    usePostTokenMutation} from "../../slices/usersApiSlice";
+    usePostTokenMutation
+} from "../../slices/usersApiSlice";
 import { toast } from "react-toastify";
 
 const Dashboard = () => {
     const [showOverlay, setShowOverlay] = useState(false);
     const [showOverlay1, setShowOverlay1] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
-    const [token, setToken] = useState(0);
+    const [token, setToken] = useState();
     const [message, setMessage] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const { data: feedbacks, error, isLoading } = useGetFeedbackQuery();
@@ -108,28 +109,31 @@ const Dashboard = () => {
     const handleSet = (id, date) => {
         setSelectedId(id);
         setShowOverlay1(true);
-        setMessage(`You have been assigned with token number ${token} on date ${date}.`)
         setAppDate(date);
     };
 
-    const handleConfirmSet = async(e) => {
+    const handleConfirmSet = async (e) => {
         e.preventDefault()
         try {
+            const ddate = appDate.toString().split("T")[0];
+            console.log(token)
             const id = parseInt(selectedId);
             const cAppointments = appointments.filter(appointment => appointment.date === appDate);
-            console.log("cAppointments:", cAppointments)
-            let cPatients=[];
-            if(cAppointments.length > 0){
+            let cPatients = [];
+            if (cAppointments.length > 0) {
                 for (let i = 0; i < cAppointments.length; i++) {
                     const patientsForAppointment = patients.filter(patient => patient.id === cAppointments[i].patientId);
                     cPatients = cPatients.concat(patientsForAppointment);
                 }
                 const cToken = cPatients.find(patient => Number(patient.token) === Number(token))
-                if (cToken){
+
+                if (cToken) {
                     toast.error("The token is already assigned to a user on same date!")
-                }else{
+                } else {
                     try {
-                        await postToken({id, token}).unwrap();
+                        const message = `You have been assigned with token number ${token} on date ${ddate}.`
+                        console.log(message)
+                        await postToken({ id, token }).unwrap();
                         const recieverId = adminId.toString()
                         await postNotification({ recieverId, message })
                         toast.success("Successfully assigned token to the user!")
@@ -152,7 +156,8 @@ const Dashboard = () => {
         setSelectedId(id);
         setAdminId(patientId);
         setShowOverlay(true);
-        setMessage(`Your appointment on ${date} has been declined!`)
+        const ddate = date.toString().split("T")[0]
+        setMessage(`Your appointment on ${ddate} has been declined!`)
     };
 
     const handleConfirmDelete = async (e) => {
@@ -171,10 +176,6 @@ const Dashboard = () => {
     const handleCancelDelete = () => {
         setShowOverlay(false);
     };
-
-    const handleChange = (event) => {
-        setToken(event.target.value)
-    }
 
     return (
         <div style={{ background: "#373C3E" }}>
@@ -264,12 +265,13 @@ const Dashboard = () => {
                                 </tr>
                                 {appointments.map((val, index) => {
                                     const patient = patients.find(patient => patient.id === val.patientId);
+                                    const ddate = val.date;
                                     return (
                                         <tr key={index}>
                                             <td>{index + 1}</td>
                                             <td>{patient ? patient.name : "Unknown Patient Id!"}</td>
                                             <td>{val.reason}</td>
-                                            <td>{val.date}</td>
+                                            <td>{ddate.toString().split("T")[0]}</td>
                                             <td>
                                                 <button style={{ background: "#57C5CA" }} className="btn" onClick={() => handleSet(val.patientId, val.date)}>Token No</button>
                                             </td>
@@ -304,7 +306,7 @@ const Dashboard = () => {
                             type="text"
                             name="token"
                             value={token}
-                            onChange={handleChange}
+                            onChange={(e) => setToken(e.target.value)}
                         />
                         <div>
                             <button style={{ background: "#373C3E" }} className="btn" onClick={handleConfirmSet}>Save</button>
