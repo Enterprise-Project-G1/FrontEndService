@@ -2,25 +2,40 @@ import React, { useEffect, useState } from "react";
 import "../../components/MainDash/Maindash.css";
 import Sidebar from "../SideBar/Sidebar";
 import '../../../App.css';
-import { useGetPatientQuery, useUpdatePatientActiveMutation, usePostTokenMutation, useUpdatePatientInactiveMutation } from "../../../slices/usersApiSlice";
+import { useGetPatientQuery, useGetAppointmentQuery, useUpdatePatientActiveMutation, usePostTokenMutation, useUpdatePatientInactiveMutation } from "../../../slices/usersApiSlice";
 import { toast } from "react-toastify";
 
 const Maindash = () => {
     const { data: patients, error } = useGetPatientQuery();
+    const { data: appointments, aError } = useGetAppointmentQuery();
     const [updateActive] = useUpdatePatientActiveMutation();
     const [updateInactive] = useUpdatePatientInactiveMutation();
     const [postToken] = usePostTokenMutation();
     const [token, setToken] = useState(0);
 
     let sortedPatients = [];
+    let sortedAppointments = [];
     useEffect(() => {
         if (error) {
             toast.error("Failed to fetch patients");
+        } else if (aError) {
+            toast.error("Failed to fetch appointments");
         }
-    }, [error]);
+    }, [error, aError, appointments, patients]);
 
-    if (patients) {
-        sortedPatients = [...patients].sort((a, b) => a.token - b.token);
+    if (patients && appointments) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        sortedAppointments = appointments.filter(appointment => {
+            const appointmentDate = new Date(appointment.date);
+            appointmentDate.setHours(0, 0, 0, 0); // Set the time to midnight for comparison
+            return appointmentDate.getTime() === today.getTime(); // Compare the time values
+        });
+        const sPatients = [...patients].sort((a, b) => a.token - b.token);
+        sortedPatients = sPatients.filter(patient =>
+            sortedAppointments.some(appointment => appointment.patientId === patient.id)
+        );
     }
 
     const handleSetActive = async (id, ctoken) => {
@@ -28,10 +43,9 @@ const Maindash = () => {
         toast.success(`Token number ${ctoken} set active!`);
         setToken(0);
         const prevActive = sortedPatients.find(patient => patient.token === ctoken - 1);
-        console.log(prevActive)
         if (prevActive) {
             const id = prevActive.id;
-            await postToken({ id, token}).unwrap();
+            await postToken({ id, token }).unwrap();
             await updateInactive(id).unwrap();
             window.location.reload();
         }
