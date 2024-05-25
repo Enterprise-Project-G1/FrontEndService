@@ -132,11 +132,12 @@ p {
 
 .description1 {
   flex: 1;
+  margin-right: 6%;
 }
 
 .he {
   font-size: 40px;
-  width: 300px;
+  width: 400px;
   text-align: start;
   color: #57C5CA;
 }

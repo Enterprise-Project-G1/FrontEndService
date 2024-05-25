@@ -126,7 +126,7 @@ const Token = () => {
       {/* Section Title with Icon */}
       <div className="section">
         <h3 className="section-title" style={{color:'#57C5CA'}}>Active Token</h3>
-        <div className="section-layer">
+        <div className="section-layer77">
           <div className="hr11">
             <hr></hr>
           </div>
@@ -158,7 +158,7 @@ const Token = () => {
             </div>
             <div>
               <h3 style={{ marginTop: "-4%", color:'#57C5CA', textAlign:"center"}}>Book Now</h3>
-              <div className="section-layer">
+              <div className="section-layer77">
                 <div className="hr11">
                   <hr></hr>
                 </div>

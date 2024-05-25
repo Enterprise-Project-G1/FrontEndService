@@ -89,7 +89,7 @@ const Signup = () => {
             onChange={handleNameChange}
           />
         </div>
-        <div className="p1">
+        <div className="p12">
           <input
             type="text"
             name="gender"
