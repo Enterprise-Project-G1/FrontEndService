@@ -65,7 +65,7 @@ const Notification = () => {
 
             {/* <div className="main"> */}
             {notifications && notifications.map((notification) => {
-              if (notification.recieverId === recieverId.toString()) {
+              if (recieverId && notification.recieverId === recieverId.toString()) {
                 return (
                   <div className="all">
                     <div className="emp"></div>
