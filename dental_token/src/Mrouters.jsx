@@ -22,6 +22,7 @@ function Mrouters() {
           <Route path='/' element={<Home />} />
           <Route path="/team" element={<Team />} />
           <Route path="/token" element={<Token />} />
+          <Route path="/token" element={<Home/>}/>
           <Route path="/notification" element={<Notification />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/logout" element={<Loginuser />} />

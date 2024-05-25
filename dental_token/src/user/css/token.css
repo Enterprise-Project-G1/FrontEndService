@@ -29,6 +29,7 @@
     text-align: left;
     width: 40%;
     font-family: Roboto;
+    margin-left: 2%;
 }
 
 .section-title {
@@ -120,6 +121,14 @@
     background-color: #373c3e;
     margin-left: 20%;
 }
+
+/* Target the calendar icon inside the date input */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Invert the color of the calendar icon */
+    color: #57C5CA; /* Change the color of the calendar icon */
+}
+
+
 
 input::placeholder {
     color: #57C5CA;

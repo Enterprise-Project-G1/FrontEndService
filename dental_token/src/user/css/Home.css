@@ -24,17 +24,18 @@
   padding-left: 50px;
   text-align: left;
   width: 800px;
+  margin-left: 2%;
 }
 
 .hero-button12 {
   color: #ffffff;
-  background-color: #373C3E;
+  /* background-color: #373C3E; */
   width: 180px;
   height: 39px;
   border-radius: 50px;
   margin-top: 50px;
   border: none;
-  margin-left: 10%;
+  margin-left: 5.5%;
 }
 
 .hero-image {
@@ -95,8 +96,8 @@
   border: none;
   background-color: #373C3E;
   margin: 20px;
-  height: 200px;
-  width: 424px;
+  height: 250px;
+  width: 25%;
   color: #ffffff;
   border-radius: 5px;
   text-align: left;

@@ -17,6 +17,7 @@
     align-items: center;
     padding-left: 20px;
     padding-right: 20px;
+    width: 90%;
 }
 
 .all {
@@ -26,6 +27,7 @@
     align-items: center;
     border-radius: 15px;
     width: 90%;
+    margin-bottom: 10%;
 }
 
 
@@ -63,6 +65,9 @@
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     z-index: 9999; /* Ensure it's on top of other content */
+}
+.outer123{
+    width: 90%;
 }
 
 

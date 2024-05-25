@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "../css/token.css";
 import Smile from "../img/smile.png";
 import { Icon } from "@iconify/react";
@@ -12,8 +12,8 @@ import { useNavigate } from "react-router-dom";
 
 const Token = () => {
   const [postAppointment] = usePostAppointmentMutation();
-  const { data: patients, error} = useGetPatientQuery();
-  const { data: appointments, aError} = useGetAppointmentQuery();
+  const { data: patients, error } = useGetPatientQuery();
+  const { data: appointments, aError } = useGetAppointmentQuery();
   const { userInfo } = useSelector(state => state.auth);
   const [patientData, setPatientData] = useState(null);
   const [patientId, setPatientId] = useState(null);
@@ -25,24 +25,24 @@ const Token = () => {
   useEffect(() => {
     if (error) {
       toast.error("Failed to fetch patient details");
-    }else if(aError) {
+    } else if (aError) {
       toast.error("Failed to fetch appointments");
     }
-    if(patients){
+    if (patients) {
       const active = patients.find(patient => patient.active === true);
-      if(active){
+      if (active) {
         setToken(active.token)
       }
     }
 
     if (patients && userInfo) {
       const patient = patients.find(patient => patient.email === userInfo.user.username);
-      
+
       if (patient) {
         setPatientData(patient);
         setPatientId(patient.id);
       }
-      
+
     }
   }, [patients, appointments, userInfo, error, aError, patientData, token]);
 
@@ -63,24 +63,24 @@ const Token = () => {
     dateFromDatabase.setHours(0, 0, 0, 0);
 
     const isNotEarlierThanToday = dateFromDatabase >= today;
-  
-    if(patientId === null){
+
+    if (patientId === null) {
       toast.error("Please login to book appointment!");
       navigate('/login');
-    }else if(date === "" || reason === ""){
+    } else if (date === "" || reason === "") {
       toast.error("All fields are required!")
-    }else if(isNotEarlierThanToday === false){
+    } else if (isNotEarlierThanToday === false) {
       toast.error("Invalid date provided for appointment!")
-    }else{
+    } else {
       const cAppointment = appointments.find(appointment => appointment.patientId === patientId);
-      if(cAppointment){
+      if (cAppointment) {
         toast.error("You already have an appointment.")
-      }else{
-        try{
-          await postAppointment({patientId, date, reason}).unwrap();
+      } else {
+        try {
+          await postAppointment({ patientId, date, reason }).unwrap();
           toast.success("Appointment Sent Successfully!")
           window.location.reload();
-        }catch (err){
+        } catch (err) {
           toast.error(err?.data?.message || err.error)
         }
       }
@@ -90,19 +90,22 @@ const Token = () => {
   return (
     <div>
       {/* Hero Banner */}
-      <Header/>
-      <Nav/>
+      <Header />
+      <Nav />
       <div className="hero-banner123">
         <div className="hero-content123">
-          <h1 className="hero-title123" style={{marginLeft:"2%"}}>Book Appointment</h1>
+          <h1 className="hero-title123" style={{ marginLeft: "2%" }}>Book Appointment</h1>
           <p className="hero-description123">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            Booking a dental appointment is like making plans to
+            visit the dentist. You can call the dentist's office
+            or go online to set up a time to go in. When you get
+            in touch, you'll talk to the receptionist, who will
+            ask for your name and phone number and find out what
+            you need. They'll help you pick a day and time that
+            works for both you and the dentist. Once everything
+            is set, they'll confirm the appointment with you
+            and give you any info you might need before you go.
+            It's an easy way to make sure you get the care you need for your teeth!
           </p>
           {/* <button className='hero-button'>Book Appointment</button> */}
         </div>
@@ -117,7 +120,7 @@ const Token = () => {
               float: "right",
               // marginLeft: '10%',
               marginRight: "4%",
-              marginTop: "-31%",
+              marginTop: "-32.3%",
             }}
           />
         </div>
@@ -125,7 +128,7 @@ const Token = () => {
 
       {/* Section Title with Icon */}
       <div className="section">
-        <h3 className="section-title" style={{color:'#57C5CA'}}>Active Token</h3>
+        <h3 className="section-title" style={{ color: '#57C5CA' }}>Active Token</h3>
         <div className="section-layer77">
           <div className="hr11">
             <hr></hr>
@@ -152,12 +155,12 @@ const Token = () => {
                 <Icon icon="material-symbols:format-quote-outline" />
 
               </div>
-              { token && (<div className="num3">
+              {token && (<div className="num3">
                 <p>{token}</p>
               </div>)}
             </div>
             <div>
-              <h3 style={{ marginTop: "-4%", color:'#57C5CA', textAlign:"center"}}>Book Now</h3>
+              <h3 style={{ marginTop: "-4%", color: '#57C5CA', textAlign: "center" }}>Book Now</h3>
               <div className="section-layer77">
                 <div className="hr11">
                   <hr></hr>
@@ -182,7 +185,7 @@ const Token = () => {
           </div>
         </main>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

@@ -9,6 +9,7 @@ import Footer from './footer';
 import Nav from './navigation';
 import { useFeedbackMutation, useGetFeedbackQuery } from '../../slices/usersApiSlice';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const { data: feedbacks, error, isLoading } = useGetFeedbackQuery();
@@ -68,11 +69,15 @@ const Home = () => {
       <div className="hero-banner">
         <div className="hero-content">
           <h1 className='hero-title12'>Showing Smile is an Art</h1>
-          <p className='hero-description'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <button className='hero-button12'>Book Appointment</button>
+          <p className='hero-description'>
+            A smile is like a beautiful piece of art that everyone can create. At our dental practice,
+            we help you make your smile look its best. With our dental tokens, you get access to excellent
+            dental care that keeps your teeth healthy and looking great. Just like an artist works on a painting,
+            we work on your teeth to bring out your best smile. Your smile is special,
+            and we’re here to help you show it off with confidence.</p>
+          <div style={{width:"150px",background:"black",marginLeft:"8.7%",borderRadius:"20px",padding:"15px", textDecoration:"none"}}>
+            <Link to={"/token"} className='hero-button12'>Book Appointment</Link>
+          </div>
         </div>
         <div className="hero-image">
           <img src={Smile} alt='Smile' />
@@ -97,9 +102,10 @@ const Home = () => {
             <h1>1</h1>
           </div>
           <div>
-            <h4>Dental Checkup</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+            <h4>General Dentistry</h4>
+            <p>Our dental hospital provides a range of general dentistry services to keep 
+              your teeth and gums healthy. Regular check-ups and cleanings are essential to prevent dental issues and maintain oral hygiene. During these visits, our skilled dentists examine your 
+              teeth, gums, and mouth, and perform professional cleanings to remove plaque and tartar.</p>
           </div>
         </div>
         <div className="card">
@@ -107,9 +113,9 @@ const Home = () => {
             <h1>2</h1>
           </div>
           <div>
-            <h4>Dental Checkup</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+            <h4>Orthodontics</h4>
+            <p> For patients seeking to correct misaligned teeth and bite issues, our dental hospital offers comprehensive orthodontic services. We provide traditional braces and modern clear aligners, such as Invisalign, to gradually straighten teeth and improve dental alignment. Our orthodontic specialists work closely with you to develop a
+              personalized treatment plan tailored to your specific needs. After the main treatment, we provide retainers to help maintain the new position of your teeth and ensure lasting results.  </p>
           </div>
         </div>
         <div className="card">
@@ -117,9 +123,9 @@ const Home = () => {
             <h1>3</h1>
           </div>
           <div>
-            <h4>Dental Checkup</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+            <h4>Cosmetic Dentistry</h4>
+            <p>Our cosmetic dentistry services are designed to enhance the appearance of your smile and boost your self-esteem. Professional teeth whitening procedures can effectively remove stains and brighten your teeth, giving you a radiant smile. For more extensive cosmetic improvements, we offer veneers—thin, custom-made shells that cover the
+              front surface of your teeth to mask imperfections and create a uniform look.  </p>
           </div>
         </div>
       </div>
@@ -141,9 +147,12 @@ const Home = () => {
         </div>
         <div className="description1">
           <h1 className='he'>We at Dental Token</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p>We at Dental Token believe that a smile is a powerful form of expression and a true work of art.
+            Our mission is to help every patient achieve a healthy, beautiful smile that they can confidently share with the world.
+            We are dedicated to providing top-tier dental care using the latest technology and techniques in a warm, welcoming environment.
+            Our team of skilled and compassionate dental professionals is committed to personalized care, ensuring that each patient receives
+            treatments tailored to their unique needs. At Dental Token, we strive to make every visit a positive experience, because we
+            understand that showing a smile is an art, and we're here to help you master it.</p>
         </div>
       </div>
       <div className="section">

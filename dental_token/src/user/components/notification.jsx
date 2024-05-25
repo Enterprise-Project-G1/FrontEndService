@@ -58,7 +58,7 @@ const Notification = () => {
       <Nav />
       <div>
 
-        <div className="outer">
+        <div className="outer123">
 
           <div className="inner">
             <h2>Notification</h2>
@@ -71,7 +71,7 @@ const Notification = () => {
                     <div className="emp"></div>
                     <div className="each00">
                       <img src={img} alt="img" />
-                      <p style={{ width: "88%", color: "white" }}>
+                      <p style={{ width: "88%", color: "white", marginLeft:"5%" }}>
                         {notification.message}
                       </p>
                       <i onClick={() => handleDelete(notification.id)} style={{ fontSize: "28px", color: "#57C5CA" }} class="fa-solid fa-trash-can"></i>
