@@ -137,8 +137,8 @@ const Profile = () => {
             <div style={{ width: "80%", display: "flex", flexWrap: "wrap", flexDirection: "column", alignItems: "flex-start" }}>
               <h3>Details</h3>
               <p style={{ textAlign: "start" }}>{sReport.details}</p>
-              <p>Date</p>
-              <h3>{sReport.date.toString().split("T")[0]}</h3>
+              <h3>Date</h3>
+              <p>{sReport.date.toString().split("T")[0]}</p>
             </div>
             <div>
               <button style={{ background: "red", width: "110px" }} onClick={() => handleDelete()}>Delete</button>
