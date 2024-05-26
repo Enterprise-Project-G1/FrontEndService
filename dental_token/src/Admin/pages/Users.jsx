@@ -218,7 +218,7 @@ const Users = () => {
                                                 <td>{val.name}</td>
                                                 <td>{val.email}</td>
                                                 <td>
-                                                    <button className="btn" onClick={() => handleEnable(val.id)}>Enable</button>
+                                                    <button style={{background:"green"}} className="btn" onClick={() => handleEnable(val.id)}>Enable</button>
                                                 </td>
                                             </tr>
                                         )

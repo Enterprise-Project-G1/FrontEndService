@@ -124,7 +124,7 @@
 
 /* Target the calendar icon inside the date input */
 input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(1); /* Invert the color of the calendar icon */
+    filter: invert(2); /* Invert the color of the calendar icon */
     color: #57C5CA; /* Change the color of the calendar icon */
 }
 

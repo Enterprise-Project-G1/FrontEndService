@@ -4,6 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import Doctors from "../img/doctors.png";
 import Tashi from "../img/tashi.png";
+import Tenzin from "../img/tenzin.png";
 // import Header from "../"
 import Header from "../components/header";
 import Nav from "../components/navigation";
@@ -93,7 +94,7 @@ const Team = () => {
 
         <div className="team-box">
           <div className="image-section">
-            <img src={Tashi} alt="Team Member 1" />
+            <img src={Tenzin} alt="Team Member 1" />
           </div>
           <div className="text-section">
             <h1>Tashi Pema</h1>

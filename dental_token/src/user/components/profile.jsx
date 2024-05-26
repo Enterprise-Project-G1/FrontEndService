@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import ProfileImage from '../img/profile.png';
 import { useSelector } from 'react-redux';
 import '../css/profile.css';
 import Header from './header';
@@ -57,6 +56,11 @@ const Profile = () => {
     }
   }, [patientData, reports]);
 
+  const getInitials = (name) => {
+    const initials = name.split(' ').map(word => word[0]).join('');
+    return initials.toUpperCase();
+  };
+
   return (
     <div className="profile-container">
       <Header />
@@ -64,7 +68,9 @@ const Profile = () => {
       <h2 className="profile-title">Account Details</h2>
       <div className="profile-section">
         <div className="profile-image-section">
-          <img src={ProfileImage} alt="Profile" className="profile-image" />
+          {patientData && patientData.name && (
+            <div className="profile-initials">{getInitials(patientData.name)}</div>
+          )}
         </div>
         {isLoading && <p>Loading details...</p>}
         {patientData && (
@@ -107,7 +113,7 @@ const Profile = () => {
       </div>
       <Footer />
 
-      {showModel && sReport &&(
+      {showModel && sReport && (
         <div className="overlayt">
           <div className='overlay-contentt'>
             <div onClick={() => setShowModel(false)} style={{ alignSelf: "end" }}><i className="fa-solid fa-xmark"></i></div>
@@ -139,7 +145,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        )}
+      )}
 
       {showToast && (
         <div className="overlay" onClick={() => setShowToast(false)} />

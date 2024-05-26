@@ -160,7 +160,7 @@ const Token = () => {
               </div>)}
             </div>
             <div>
-              <h3 style={{ marginTop: "-4%", color: '#57C5CA', textAlign: "center" }}>Book Now</h3>
+              <h3 style={{ marginTop: "-4%", color: '#57C5CA', textAlign: "center", fontSize:"30px", fontWeight:"620" }}>Book Now</h3>
               <div className="section-layer77">
                 <div className="hr11">
                   <hr></hr>

@@ -135,10 +135,10 @@
 }
 
 .image-section img {
-  width: 100%;
-  max-width: 350px; /* Adjust the max-width for images */
+  width: 300%;
+  max-width: 600px; /* Adjust the max-width for images */
   height: auto;
-  margin-bottom: -2px;
+  margin-bottom: 36%;
 }
 
 .team-box h1 {

@@ -54,12 +54,12 @@ const Sidebar = () => {
                 <div className="menuItem ">
                     <span style={{ fontSize: "20px" }}><TbReportAnalytics /></span>
                     {/* <span>Appointment</span> */}
-                    <Link exact to="/admin/docdash">Appointment</Link>
+                    <Link exact to="/admin/docdash" style={{textDecoration:"none"}}>Appointment</Link>
                 </div>
                 <div className="menuItem">
                     <span style={{ fontSize: "20px" }}><TbFileText /></span>
                     {/* <span>Active Appointment</span> */}
-                    <Link to="/admin/active">Active Appointment</Link>
+                    <Link to="/admin/active" style={{textDecoration:"none"}}>Active Appointment</Link>
                 </div>
 
 
@@ -70,9 +70,9 @@ const Sidebar = () => {
             <div className="doctorInfo">
                 <div className="div1">
                     {userData && (
-                        <p className="name">{userData.name}</p>
+                        <p style={{margin:"0px"}} className="name">{userData.name}</p>
                     )}
-                    <p>Dentist</p>
+                    <p style={{margin:"0px"}}>Dentist</p>
                 </div>
 
                 <div className="info-btn">

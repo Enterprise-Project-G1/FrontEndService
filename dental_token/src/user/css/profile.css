@@ -240,3 +240,15 @@
   overflow-y: auto;
   /* Add vertical scrollbar if content overflows */
 }
+
+.profile-initials {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 200px;
+  color: #fff;
+}

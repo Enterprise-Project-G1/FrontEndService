@@ -92,7 +92,7 @@ const handlePasswordChange = (e) => {
             height: '50%', // This will maintain the aspect ratio of the image
             display: "block", // To ensure the image is a block-level element
             margin: "20px", // To center the image horizontally and add space
-            marginTop: '-15%'
+            marginTop: '-20%'
           }}
         />
       </div>

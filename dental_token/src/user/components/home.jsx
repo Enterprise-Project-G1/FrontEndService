@@ -115,7 +115,7 @@ const Home = () => {
           <div>
             <h4>Orthodontics</h4>
             <p> For patients seeking to correct misaligned teeth and bite issues, our dental hospital offers comprehensive orthodontic services. We provide traditional braces and modern clear aligners, such as Invisalign, to gradually straighten teeth and improve dental alignment. Our orthodontic specialists work closely with you to develop a
-              personalized treatment plan tailored to your specific needs. After the main treatment, we provide retainers to help maintain the new position of your teeth and ensure lasting results.  </p>
+              personalized treatment plan tailored to your specific needs. After the main treatment. </p>
           </div>
         </div>
         <div className="card">
